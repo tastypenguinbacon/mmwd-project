@@ -44,21 +44,8 @@ public class Demo {
                 2500,
                 0.97);
 
-        System.out.println(optimal);
+        System.out.println("optymalne rozwiązanie to:" + optimal);
         solver.find();
-
-//        System.out.println("\n");
-//        System.out.println(mutate("abc"));
-//        System.out.println((char) (-1 + 'a'));
-//        System.out.println("\n");
-//        Random r2 = new Random();
-//        StringBuilder newStr = new StringBuilder("abc");
-//        newStr.setCharAt(0, '1');
-//        newStr.setCharAt(1, 'Z');
-//        newStr.setCharAt(2, 'q');
-//        System.out.println(newStr.toString());
-//        for(int i = 0; i < 100; i++)
-//            System.out.print(r2.nextInt(new String("abc").length()) + " ");
 
     }
 }
