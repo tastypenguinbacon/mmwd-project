@@ -2,10 +2,8 @@ import SimulatedAnnealing.SimulatedAnnealingSolver;
 
 import java.util.Random;
 
-/**
- * Created by user on 26.11.16.
- */
 public class Demo {
+    // goal string
     private static final String optimal = "abcdefghijklmnopqrstuvwxyz";
 
     private static int hammingDistance(String first, String second){
@@ -17,10 +15,8 @@ public class Demo {
             res += (first.charAt(i) == second.charAt(i)) ? 0 : 1;
         return res;
     }
-    public static double Value(String str){
-        return hammingDistance(optimal, str);
-    }
 
+    // change one random character to another randomly generated
     private static String mutate(String str){
         Random r1 = new Random();
         int position = r1.nextInt(str.length());
@@ -35,7 +31,7 @@ public class Demo {
     }
 
     public static void main(String[] args) {
-
+        // initialize the problem
         SimulatedAnnealingSolver<String> solver = new SimulatedAnnealingSolver<String>(
                 "kmgniwsodfhydmsferinoqtngh",
                 Demo::mutate,
@@ -45,6 +41,7 @@ public class Demo {
                 0.97);
 
         System.out.println("optymalne rozwiązanie to:" + optimal);
+        // attempt to find the solution
         solver.find();
 
     }

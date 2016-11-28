@@ -12,8 +12,6 @@ public class SimulatedAnnealingSolver<Solution> {
     private final int maxSteps;
     private double alpha;
 
-    private Solution best;
-
     public SimulatedAnnealingSolver(Solution initialSolution,
                                 UnaryOperator<Solution> generateChild,
                                 Function<Solution, Double> objectiveFunction) {
@@ -35,6 +33,11 @@ public class SimulatedAnnealingSolver<Solution> {
     }
     // algorytm
     public void find(){
+        // initialize best solution
+        Solution best = this.current;
+        int bestStep = -1;
+
+        // main loop of the algorithm
         for(int step = 0; step < maxSteps; step++) {
 /////////////////////////
             System.out.println("step: " + step +
@@ -44,11 +47,21 @@ public class SimulatedAnnealingSolver<Solution> {
 /////////////////////////
             Solution child = generateChild.apply(current);
             double deltaE = getValue(child) - getValue(current);
-            if ( shouldAccept(deltaE, temperature) )
+
+            // TODO: refactor double check for deltaE < 0
+            if (deltaE < 0) {
+                best = child;
+                bestStep = step;
+            }
+            if ( shouldAccept(deltaE, temperature) ) {
                 current = child;
+            }
             temperature = temperature * alpha;
         }
-        System.out.println("\nKONIEC\nrozwiązanie: " + current + " , wartość: " + getValue(current));
+        System.out.println("\nKONIEC\nnajlepsze znaleznione rozwiązanie:\n" +
+                "step: " + bestStep +
+                "\trozwiązanie: " + best +
+                " , wartość: " + getValue(best));
     }
 
     private double getValue(Solution sol){
