@@ -44,10 +44,5 @@ public class SimulatedAnnealingSolverTest {
                 .setStartingTemperature(10.0).setAlpha(0.97).build();
         String solution = solver.solve("kmgniwsodfhydmsferinoqtngh", 2500);
         assertTrue(hammingDistance(optimal, solution) < 3);
-        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 1));
-        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 10));
-        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 100));
-        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 1000));
-        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 10000));
     }
 }
