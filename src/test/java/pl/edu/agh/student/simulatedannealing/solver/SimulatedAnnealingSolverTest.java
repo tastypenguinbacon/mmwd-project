@@ -1,11 +1,15 @@
+package pl.edu.agh.student.simulatedannealing.solver;
 
-
-import pl.edu.agh.student.simulatedannealing.solver.SimulatedAnnealingSolver;
+import org.junit.Test;
 
 import java.util.Random;
 
-public class Demo {
-    // goal string
+import static org.junit.Assert.*;
+
+/**
+ * Created by pingwin on 10.12.16.
+ */
+public class SimulatedAnnealingSolverTest {
     private static final String optimal = "abcdefghijklmnopqrstuvwxyz";
 
     private static int hammingDistance(String first, String second) {
@@ -18,7 +22,6 @@ public class Demo {
         return res;
     }
 
-    // change one random character to another randomly generated
     private static String mutate(String str) {
         Random r1 = new Random();
         int position = r1.nextInt(str.length());
@@ -32,18 +35,14 @@ public class Demo {
         return newStr.toString();
     }
 
-    public static void main(String[] args) {
-        // initialize the problem
+    @Test
+    public void whenUsingHammingDistance() {
         SimulatedAnnealingSolver<String> solver = new SimulatedAnnealingSolver<>(
-                "kmgniwsodfhydmsferinoqtngh",
-                Demo::mutate,
-                (String str) -> (double) hammingDistance(str, optimal),
-                10.0,
-                2500,
-                0.97);
+                "kmgniwsodfhydmsferinoqtngh", SimulatedAnnealingSolverTest::mutate,
+                (String str) -> (double) hammingDistance(str, optimal), 10.0,
+                2500, 0.97);
 
         System.out.println("optymalne rozwiązanie to:" + optimal);
-        // attempt to find the solution
         solver.find();
 
     }
