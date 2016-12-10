@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by pingwin on 10.12.16.
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class SimulatedAnnealingSolverTest {
     private static final String optimal = "abcdefghijklmnopqrstuvwxyz";
 
-    private static int hammingDistance(String first, String second) {
+    private static double hammingDistance(String first, String second) {
         if (first.length() != second.length())
             return -1;
 
@@ -37,13 +37,17 @@ public class SimulatedAnnealingSolverTest {
 
     @Test
     public void whenUsingHammingDistance() {
-        SimulatedAnnealingSolver<String> solver = new SimulatedAnnealingSolver<>(
-                "kmgniwsodfhydmsferinoqtngh", SimulatedAnnealingSolverTest::mutate,
-                (String str) -> (double) hammingDistance(str, optimal), 10.0,
-                2500, 0.97);
-
-        System.out.println("optymalne rozwiązanie to:" + optimal);
-        solver.find();
-
+        SimulatedAnnealingSolver.Builder<String> solverBuilder = SimulatedAnnealingSolver.getBuilder();
+        SimulatedAnnealingSolver<String> solver = solverBuilder
+                .setGenerateChild(SimulatedAnnealingSolverTest::mutate)
+                .setObjectiveFunction( (String str) -> hammingDistance(str, optimal))
+                .setStartingTemperature(10.0).setAlpha(0.97).build();
+        String solution = solver.solve("kmgniwsodfhydmsferinoqtngh", 2500);
+        assertTrue(hammingDistance(optimal, solution) < 3);
+        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 1));
+        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 10));
+        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 100));
+        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 1000));
+        System.out.println(solver.solve("kmgniwsodfhydmsferinoqtngh", 10000));
     }
 }
