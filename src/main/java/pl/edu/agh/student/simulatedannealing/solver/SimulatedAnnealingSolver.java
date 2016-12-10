@@ -34,7 +34,7 @@ public class SimulatedAnnealingSolver<Solution> {
             Solution child = generateChild.apply(current);
             double deltaE = getValue(child) - getValue(current);
 
-            if (deltaE < 0) {
+            if (getValue(child) < getValue(best)) {
                 best = child;
             }
             if (shouldAccept(deltaE, temperature)) {
