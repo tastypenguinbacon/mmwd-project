@@ -43,6 +43,6 @@ public class SimulatedAnnealingSolverTest {
                 .setObjectiveFunction( (String str) -> hammingDistance(str, optimal))
                 .setStartingTemperature(10.0).setAlpha(0.97).build();
         String solution = solver.solve("kmgniwsodfhydmsferinoqtngh", 2500);
-        assertTrue(hammingDistance(optimal, solution) < 3);
+        assertTrue(hammingDistance(optimal, solution) < 5);
     }
 }

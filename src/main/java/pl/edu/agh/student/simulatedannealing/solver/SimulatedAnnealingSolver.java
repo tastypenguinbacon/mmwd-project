@@ -1,5 +1,8 @@
 package pl.edu.agh.student.simulatedannealing.solver;
 
+import pl.edu.agh.student.simulatedannealing.statistics.Statistics;
+
+import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
@@ -7,11 +10,11 @@ import java.util.function.UnaryOperator;
 import static java.lang.Math.*;
 
 public class SimulatedAnnealingSolver<Solution> {
-    private Solution current;
     private final UnaryOperator<Solution> generateChild;
     private final Function<Solution, Double> objectiveFunction;
     private double startingTemperature;
     private final double alpha;
+    private Statistics statistics;
 
     private SimulatedAnnealingSolver(Builder<Solution> builder) {
         this.generateChild = builder.generateChild;
@@ -21,19 +24,18 @@ public class SimulatedAnnealingSolver<Solution> {
     }
 
     public Solution solve(Solution startingPoint, int maxSteps) {
+        init();
         Solution best = startingPoint;
-        current = startingPoint;
+        Solution current = startingPoint;
         double temperature = this.startingTemperature;
-        int bestStep = -1;
 
         for (int step = 0; step < maxSteps; step++) {
+            addStatistics();
             Solution child = generateChild.apply(current);
             double deltaE = getValue(child) - getValue(current);
 
-            // TODO: refactor double check for deltaE < 0
             if (deltaE < 0) {
                 best = child;
-                bestStep = step;
             }
             if (shouldAccept(deltaE, temperature)) {
                 current = child;
@@ -43,12 +45,24 @@ public class SimulatedAnnealingSolver<Solution> {
         return best;
     }
 
+    private void init() {
+        statistics = new Statistics();
+    }
+
+    private void addStatistics() {
+
+    }
+
     private double getValue(Solution sol) {
         return objectiveFunction.apply(sol);
     }
 
     private boolean shouldAccept(double deltaE, double T) {
         return (deltaE < 0) || new Random().nextDouble() < exp(-1 * deltaE / T);
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
     }
 
     public static <E> Builder<E> getBuilder() {
