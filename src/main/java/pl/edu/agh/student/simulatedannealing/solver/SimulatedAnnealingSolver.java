@@ -30,7 +30,7 @@ public class SimulatedAnnealingSolver<Solution> {
         double temperature = this.startingTemperature;
 
         for (int step = 0; step < maxSteps; step++) {
-            addStatistics();
+            addStatistics(step, temperature);
             Solution child = generateChild.apply(current);
             double deltaE = getValue(child) - getValue(current);
 
@@ -49,8 +49,8 @@ public class SimulatedAnnealingSolver<Solution> {
         statistics = new Statistics();
     }
 
-    private void addStatistics() {
-
+    private void addStatistics(int iteration, double temperature) {
+        statistics.add(iteration, temperature);
     }
 
     private double getValue(Solution sol) {
