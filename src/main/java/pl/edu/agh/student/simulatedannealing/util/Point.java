@@ -14,6 +14,8 @@ public class Point implements Serializable {
         this.y = y;
     }
 
+    public Point() {}
+
     public int getX() {
         return x;
     }
@@ -28,5 +30,22 @@ public class Point implements Serializable {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Point point = (Point) o;
+
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
     }
 }
