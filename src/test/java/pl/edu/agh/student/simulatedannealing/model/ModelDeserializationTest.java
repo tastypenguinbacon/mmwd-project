@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,5 +23,22 @@ public class ModelDeserializationTest {
         System.out.println(serializedPizza);
         Pizza deserializedPizza = objectMapper.readValue(serializedPizza, Pizza.class);
         assertTrue(deserializedPizza.equals(pizza));
+    }
+
+    @Test
+    public void howThePizzaDelivererJsonLooksLike() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        PizzaDeliverer deliverer = new PizzaDeliverer();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        Set<Pizza> pizzasWeAreObligatedToDeliver = new HashSet<>();
+        for (int i = 0; i < 3; i++) {
+            Pizza newPizza = new Pizza(new Point(i, i), new Point(i, i));
+            pizzasWeAreObligatedToDeliver.add(newPizza);
+        }
+        deliverer.setPizzasWeAreObligatedToDeliver(pizzasWeAreObligatedToDeliver);
+        String serializedDeliverer = objectMapper.writeValueAsString(deliverer);
+        System.out.println(serializedDeliverer);
+        PizzaDeliverer deserializedDeliverer = objectMapper.readValue(serializedDeliverer, PizzaDeliverer.class);
+        assertTrue(deserializedDeliverer.equals(deliverer));
     }
 }
