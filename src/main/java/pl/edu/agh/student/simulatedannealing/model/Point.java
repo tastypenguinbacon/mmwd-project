@@ -1,4 +1,4 @@
-package pl.edu.agh.student.simulatedannealing.util;
+package pl.edu.agh.student.simulatedannealing.model;
 
 import java.io.Serializable;
 

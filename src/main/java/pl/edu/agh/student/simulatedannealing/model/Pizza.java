@@ -1,7 +1,5 @@
 package pl.edu.agh.student.simulatedannealing.model;
 
-import pl.edu.agh.student.simulatedannealing.util.Point;
-
 import java.io.Serializable;
 
 /**

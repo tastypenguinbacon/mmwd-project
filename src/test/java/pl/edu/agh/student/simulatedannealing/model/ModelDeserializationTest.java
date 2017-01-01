@@ -3,7 +3,6 @@ package pl.edu.agh.student.simulatedannealing.model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
-import pl.edu.agh.student.simulatedannealing.util.Point;
 
 import java.io.IOException;
 
