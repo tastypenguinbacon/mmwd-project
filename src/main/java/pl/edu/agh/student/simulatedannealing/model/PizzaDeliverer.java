@@ -15,41 +15,99 @@ public class PizzaDeliverer implements Cloneable {
     private Set<Pizza> pizzasWeAreObligatedToDeliver = new HashSet<>();
     private Set<Pizza> pizzasWeCouldDeliver = new HashSet<>();
 
+    private Point currentPosition;
+
     public PizzaDeliverer() {
     }
 
+    public PizzaDeliverer(Point position) {
+        this.currentPosition = position;
+    }
+
+    /**
+     * This method is intended to return true when the pizzas can be delivered before getting cold - which means that it
+     * takes the minimum time from all the pizzas (both - which have to be delivered, and which could be delivered) and
+     * checks whether the time is enough to deliver all of the pizzas.
+     *
+     * @return true when is able to collect the pizzas and false if at least one of them is cold after delivery
+     */
     @JsonIgnore
     public boolean isAbleToCollectThePizzas() {
-        return false;
+        return false; // todo - implement
     }
 
-    public void addPizza(Pizza pizza) {
-        pizzasWeCouldDeliver.add(pizza);
-    }
-
-    public void removePizza(Pizza pizza) {
-        pizzasWeCouldDeliver.remove(pizza);
-    }
-
-    @JsonIgnore
-    public Collection<Pizza> getAssignedPizzas() {
-        return null;
-    }
-
-    public Set<Pizza> getPizzasWeAreObligatedToDeliver() {
-        return pizzasWeAreObligatedToDeliver;
-    }
-
-    public void setPizzasWeAreObligatedToDeliver(Set<Pizza> pizzasWeAreObligatedToDeliver) {
-        this.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
-    }
-
+    /**
+     * VERRY IMPORTANT! The pizza deliverer has to be cloned before any changes are applied to him! If he is not cloned
+     * then we are not able to restore him to the previous state in case of a failed assumption.
+     *
+     * pizzasWeAreObligatedToDeliver should be immutable
+     * every pizza on its own is also immutable, so a shallow copy is enough
+     *
+     * @return returns a copy of the object
+     * @throws CloneNotSupportedException should be never thrown is just because of Java reasons
+     */
     @Override
     public PizzaDeliverer clone() throws CloneNotSupportedException {
         PizzaDeliverer delivererClone = (PizzaDeliverer) super.clone();
         delivererClone.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
         delivererClone.pizzasWeCouldDeliver = pizzasWeCouldDeliver.stream().collect(Collectors.toSet());
         return delivererClone;
+    }
+
+    /**
+     * Should be used while mutating the current state.
+     * @param pizza the Pizza object to be added to the deliverer
+     */
+    public void addPizza(Pizza pizza) {
+        pizzasWeCouldDeliver.add(pizza);
+    }
+
+    /**
+     * Returns a collection of pizzas which could be delivered. It's a snapshot copy of the original set to avoid
+     * infinite loops like:
+     *
+     * for (Pizza pizza : deliverer.getAssignedPizzas()) {
+     *     deliverer.addPizza(pizza);
+     * }
+     *
+     * @return Returns the pizzas which could be delivered
+     */
+    @JsonIgnore
+    public Collection<Pizza> getAssignedPizzas() {
+        return new HashSet<>(pizzasWeCouldDeliver);
+    }
+
+    /**
+     * Should be used while mutating the current state.
+     * @param pizza pizza to be removed from the pizzas we could deliver
+     */
+    public void removePizza(Pizza pizza) {
+        pizzasWeCouldDeliver.remove(pizza);
+    }
+
+
+    /**
+     * These are the pizzas the deliverer already took with him. Should be used by the Json parsers.
+     * @return the pizzas the deliverer has already with him.
+     */
+    public Set<Pizza> getPizzasWeAreObligatedToDeliver() {
+        return pizzasWeAreObligatedToDeliver;
+    }
+
+    /**
+     * Should be used mostly for Json deserialization purposes.
+     * @param pizzasWeAreObligatedToDeliver
+     */
+    public void setPizzasWeAreObligatedToDeliver(Set<Pizza> pizzasWeAreObligatedToDeliver) {
+        this.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
+    }
+
+    public Point getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(Point currentPosition) {
+        this.currentPosition = currentPosition;
     }
 
     @Override

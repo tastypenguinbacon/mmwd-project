@@ -6,6 +6,9 @@ import java.io.Serializable;
  * Created by pingwin on 01.01.17.
  */
 
+/**
+ * Should be immutable, all the setters are just for serialization/deserialization purposes. Sometimes for creation.
+ */
 public class Pizza implements Serializable {
     private int timeUntilCold = 15;
     private Point position;
