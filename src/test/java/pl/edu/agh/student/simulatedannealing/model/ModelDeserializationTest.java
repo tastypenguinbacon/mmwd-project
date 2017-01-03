@@ -28,7 +28,8 @@ public class ModelDeserializationTest {
     @Test
     public void howThePizzaDelivererJsonLooksLike() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        PizzaDeliverer deliverer = new PizzaDeliverer();
+        Point delivererPosition = new Point(3, 6);
+        PizzaDeliverer deliverer = new PizzaDeliverer(delivererPosition);
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         Set<Pizza> pizzasWeAreObligatedToDeliver = new HashSet<>();
         for (int i = 0; i < 3; i++) {
