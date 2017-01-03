@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Ja on 2017-01-03.
+ * Created by Szymek on 2017-01-03.
  */
 public abstract class TemperatureTestBase<T extends Temperature> {
     private T instance;

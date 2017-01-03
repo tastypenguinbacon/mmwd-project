@@ -1,7 +1,7 @@
 package pl.edu.agh.student.simulatedannealing.temperature;
 
 /**
- * Created by Ja on 2017-01-02.
+ * Created by Szymek on 2017-01-02.
  */
 public class LinearlyDecreasingTemperature implements Temperature{
     private final double decrement;
