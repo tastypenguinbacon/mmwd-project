@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,7 @@ public class PizzaDeliverer implements Cloneable {
     
     private Set<Pizza> pizzasWeAreObligatedToDeliver = new HashSet<>();
     private Set<Pizza> pizzasWeCouldDeliver = new HashSet<>();
+    private List<Point> route = new LinkedList<>();
 
     private Point currentPosition;
 
@@ -25,9 +28,11 @@ public class PizzaDeliverer implements Cloneable {
     }
 
     /**
-     * This method is intended to return true when the pizzas can be delivered before getting cold - which means that it
-     * takes the minimum time from all the pizzas (both - which have to be delivered, and which could be delivered) and
-     * checks whether the time is enough to deliver all of the pizzas.
+     * This method is intended to return true when:
+     * all pizzas from pizzasWeAreObligatedToDeliver and pizzasWeCouldDeliver are being delivered
+     * and all pizzas are delivered before getting cold,
+     * and pizzas from pizzasWeCouldDeliver are first picked up, and only later delivered,
+     * It should return false otherwise.
      *
      * @return true when is able to collect the pizzas and false if at least one of them is cold after delivery
      */
