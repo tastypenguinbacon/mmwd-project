@@ -21,6 +21,6 @@ public class ComputationState {
     }
 
     public boolean isValid() {
-        return pizzaDeliverers.stream().filter(PizzaDeliverer::isAbleToCollectThePizzas).count() == pizzaDeliverers.size();
+        return pizzaDeliverers.stream().allMatch(PizzaDeliverer::isAbleToCollectThePizzas);
     }
 }
