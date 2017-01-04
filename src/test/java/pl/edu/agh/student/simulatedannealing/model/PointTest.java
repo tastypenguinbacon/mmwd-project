@@ -33,4 +33,12 @@ public class PointTest {
         Point nullPoint = null;
         validPoint.distanceTo(nullPoint);
     }
+
+    @Test
+    public void pointEqualityTest() {
+        Point first = new Point(-5, 2);
+        Point second = new Point(-5, 2);
+
+        assertTrue(first.equals(second));
+    }
 }
