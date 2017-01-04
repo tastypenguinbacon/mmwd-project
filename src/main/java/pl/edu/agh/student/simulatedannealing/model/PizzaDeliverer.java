@@ -4,15 +4,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
  * Created by pingwin on 01.01.17.
  */
 public class PizzaDeliverer implements Cloneable {
+
+    // todo important:
+    // consider changing set to list to handle identical pizza orders
     
     private Set<Pizza> pizzasWeAreObligatedToDeliver = new HashSet<>();
     private Set<Pizza> pizzasWeCouldDeliver = new HashSet<>();
@@ -34,11 +40,58 @@ public class PizzaDeliverer implements Cloneable {
      * and pizzas from pizzasWeCouldDeliver are first picked up, and only later delivered,
      * It should return false otherwise.
      *
-     * @return true when is able to collect the pizzas and false if at least one of them is cold after delivery
+     * @return true when is able to collect and deliver hot pizzas
+     * and return false if at least one pizza is cold after delivery
      */
     @JsonIgnore
     public boolean isAbleToCollectThePizzas() {
-        return false; // todo - implement
+        Set<Pizza> inBackpack = new HashSet<>(pizzasWeAreObligatedToDeliver);
+        Set<Pizza> delivered = new HashSet<>();
+
+        Consumer<Point> pickUpPizzasFromPoint = (point) -> {
+            for (Pizza pizza : pizzasWeCouldDeliver) {
+                if (pizza.getPosition().equals(point)) {
+                    inBackpack.add(pizza);// local var
+                }
+            }
+        };
+
+        BiFunction<Point, Integer, Boolean> deliverPizzasToPoint = (point, time) -> {
+            Iterator<Pizza> iter = inBackpack.iterator();
+            while (iter.hasNext()) {
+                Pizza pizza = iter.next();
+                if (pizza.getDestination().equals(point)) {
+                    if (pizza.getTimeUntilCold() >= time) {
+                        iter.remove();
+                        delivered.add(pizza);
+                    } else
+                        return false;
+                }
+            }
+            return true;
+        };
+
+        Point currentPoint = currentPosition;
+        int time = 0;
+
+        pickUpPizzasFromPoint.accept(currentPoint);
+        if (!deliverPizzasToPoint.apply(currentPoint, time))
+            return false;
+
+        //traverse the route picking up and delivering pizzas
+        for (Point point : route) {
+            Point prev = currentPoint;
+            currentPoint = point;
+            time += currentPoint.distanceTo(prev);
+
+            pickUpPizzasFromPoint.accept(currentPoint);
+            if(!deliverPizzasToPoint.apply(currentPoint, time))
+                return false;
+        }
+
+        return inBackpack.isEmpty()
+                && delivered.containsAll(pizzasWeAreObligatedToDeliver)
+                && delivered.containsAll(pizzasWeCouldDeliver);
     }
 
     /**
@@ -114,6 +167,8 @@ public class PizzaDeliverer implements Cloneable {
     public void setCurrentPosition(Point currentPosition) {
         this.currentPosition = currentPosition;
     }
+
+    public void setRoute(List<Point> route) { this.route = route; }
 
     @Override
     public boolean equals(Object o) {
