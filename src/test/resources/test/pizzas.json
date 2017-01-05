@@ -1,0 +1,24 @@
+[
+  {
+    "timeUntilCold": 15,
+    "position": {
+      "x": 10,
+      "y": 20
+    },
+    "destination": {
+      "x": 10,
+      "y": 40
+    }
+  },
+  {
+    "timeUntilCold": 15,
+    "position": {
+      "x": 10,
+      "y": 20
+    },
+    "destination": {
+      "x": 10,
+      "y": 40
+    }
+  }
+]
