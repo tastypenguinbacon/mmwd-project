@@ -1,0 +1,7 @@
+[
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas.json",
+    "deliverers": "test/deliverers.json"
+  }
+]

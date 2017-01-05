@@ -8,11 +8,16 @@ import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pingwin on 05.01.17.
  */
 public class JsonLoader {
+    public static String DESCRIPTION = "description";
+    public static String PIZZAS = "pizzas";
+    public static String DELIVERERS = "deliverers";
+
     public List<Pizza> loadPizzas(InputStream pizzaSource) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
@@ -35,5 +40,17 @@ public class JsonLoader {
             e.printStackTrace();
         }
         return deliverers;
+    }
+
+    public List<Map<String, String>> getResourceMappings(InputStream resourcesSource) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
+        List<Map<String, String>> resources = null;
+        try {
+            resources = objectMapper.readValue(resourcesSource, objectMapper.getTypeFactory().constructCollectionType(List.class, Map.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resources;
     }
 }
