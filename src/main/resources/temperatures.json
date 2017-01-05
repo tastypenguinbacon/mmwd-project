@@ -1,0 +1,4 @@
+{
+  "Linear temperature change": "pl.edu.agh.student.simulatedannealing.temperature.LinearlyDecreasingTemperature",
+  "Exponential temperature change": "pl.edu.agh.student.simulatedannealing.temperature.ExponentiallyDecreasingTemperature"
+}

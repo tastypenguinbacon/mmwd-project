@@ -1,8 +1,9 @@
-package pl.edu.agh.student.simulatedannealing.gui;
+package pl.edu.agh.student.simulatedannealing.util;
 
 import org.junit.Test;
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
 import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
+import pl.edu.agh.student.simulatedannealing.temperature.Temperature;
 
 import java.io.InputStream;
 import java.util.List;
@@ -39,5 +40,12 @@ public class JsonLoaderTest {
             System.out.println(resource.get(JsonLoader.PIZZAS));
             System.out.println(resource.get(JsonLoader.DELIVERERS));
         });
+    }
+
+    @Test
+    public void loadTemperatures() {
+        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("temperatures.json");
+        JsonLoader jsonLoader = new JsonLoader();
+        //Map<String, Temperature> temperatures = jsonLoader.getProperties(resourceAsStream);
     }
 }

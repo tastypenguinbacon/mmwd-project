@@ -1,9 +1,10 @@
-package pl.edu.agh.student.simulatedannealing.gui;
+package pl.edu.agh.student.simulatedannealing.util;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
 import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
+import pl.edu.agh.student.simulatedannealing.temperature.Temperature;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,5 +53,17 @@ public class JsonLoader {
             e.printStackTrace();
         }
         return resources;
+    }
+
+    public Map<String, String> getProperties(InputStream resourceAsStream) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
+        Map<String, String> classNames = null;
+        try {
+            classNames =  objectMapper.readValue(resourceAsStream, objectMapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return classNames;
     }
 }

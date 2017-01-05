@@ -1,12 +1,9 @@
 package pl.edu.agh.student.simulatedannealing.gui;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
 import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
+import pl.edu.agh.student.simulatedannealing.util.JsonLoader;
 
 import java.io.InputStream;
 import java.util.List;
@@ -25,7 +22,7 @@ public class TestCases extends VBox {
         List<Map<String, String>> buttons;
         buttons = loader.getResourceMappings(resourceMappings);
         buttons.forEach((Map<String, String> element) -> {
-            Button button = new Button();
+            MenuItem button = new MenuItem();
             button.setText(element.get(JsonLoader.DESCRIPTION));
             String pizzas = element.get(JsonLoader.PIZZAS);
             String deliverers = element.get(JsonLoader.DELIVERERS);
@@ -37,16 +34,14 @@ public class TestCases extends VBox {
                 this.deliverers = delivererList;
                 this.pizzas = pizzaList;
             });
-            button.setPadding(new Insets(20));
             this.getChildren().add(button);
         });
-        Button customArrangement = new Button("Custom Arrangement");
-        customArrangement.setPadding(new Insets(20));
+        MenuItem customArrangement = new MenuItem();
+        customArrangement.setText("Custom Arrangement");
         customArrangement.setOnAction(event -> {
             this.deliverers = null;
             this.pizzas = null;
         });
-        this.setPadding(new Insets(50, 20, 50, 20));
         this.getChildren().add(customArrangement);
     }
 
