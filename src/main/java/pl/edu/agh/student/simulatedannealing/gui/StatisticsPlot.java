@@ -19,5 +19,6 @@ public class StatisticsPlot extends LineChart<Number, Number> {
         }
         setCreateSymbols(false);
         getData().add(series);
+        setMinSize(720, 720);
     }
 }

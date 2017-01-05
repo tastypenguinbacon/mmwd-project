@@ -1,0 +1,125 @@
+[
+  {
+    "pizzasWeAreObligatedToDeliver": [
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "destination": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 1,
+          "y": 1
+        },
+        "destination": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "destination": {
+          "x": 2,
+          "y": 2
+        }
+      }
+    ],
+    "currentPosition": {
+      "x": 3,
+      "y": 6
+    }
+  },
+  {
+    "pizzasWeAreObligatedToDeliver": [
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "destination": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 1,
+          "y": 1
+        },
+        "destination": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "destination": {
+          "x": 2,
+          "y": 2
+        }
+      }
+    ],
+    "currentPosition": {
+      "x": 3,
+      "y": 6
+    }
+  },
+  {
+    "pizzasWeAreObligatedToDeliver": [
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "destination": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 1,
+          "y": 1
+        },
+        "destination": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "timeUntilCold": 15,
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "destination": {
+          "x": 2,
+          "y": 2
+        }
+      }
+    ],
+    "currentPosition": {
+      "x": 3,
+      "y": 6
+    }
+  }
+]
