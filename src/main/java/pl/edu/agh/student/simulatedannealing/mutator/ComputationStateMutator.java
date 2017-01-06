@@ -1,5 +1,6 @@
-package pl.edu.agh.student.simulatedannealing.model;
+package pl.edu.agh.student.simulatedannealing.mutator;
 
+import pl.edu.agh.student.simulatedannealing.model.Pizza;
 import pl.edu.agh.student.simulatedannealing.mutator.Mutator;
 import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 
@@ -10,15 +11,10 @@ import java.util.Random;
  * Created by Szymek on 2017-01-03.
  */
 public class ComputationStateMutator implements Mutator<ComputationState> {
-    private final List<Pizza> pizzasToDeliver;
-    private final List<Pizza> pizzasWeAreObligatedToDeliver;
+    private List<Pizza> pizzasToDeliver;
+    private List<Pizza> pizzasWeAreObligatedToDeliver;
 
     private Random generator = new Random();
-
-    ComputationStateMutator(List<Pizza> pizzasToDeliver, List<Pizza> pizzasWeAreObligatedToDeliver) {
-        this.pizzasToDeliver = pizzasToDeliver;
-        this.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
-    }
 
     @Override
     public ComputationState getNext(ComputationState parent) {
@@ -47,5 +43,13 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
             return false;
         solution.removePizzaFromSolution(pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size())));
         return true;
+    }
+
+    public void setPizzasToDeliver(List<Pizza> pizzasToDeliver) {
+        this.pizzasToDeliver = pizzasToDeliver;
+    }
+
+    public void setPizzasWeAreObligatedToDeliver(List<Pizza> pizzasWeAreObligatedToDeliver) {
+        this.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
     }
 }
