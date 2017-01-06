@@ -45,11 +45,11 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
         return true;
     }
 
-    public void setPizzasToDeliver(List<Pizza> pizzasToDeliver) {
+    public void initializePizzasToDeliver(List<Pizza> pizzasToDeliver) {
         this.pizzasToDeliver = pizzasToDeliver;
     }
 
-    public void setPizzasWeAreObligatedToDeliver(List<Pizza> pizzasWeAreObligatedToDeliver) {
+    public void initializePizzasWeAreObligatedToDeliver(List<Pizza> pizzasWeAreObligatedToDeliver) {
         this.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
     }
 }
