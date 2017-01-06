@@ -1,6 +1,5 @@
 package pl.edu.agh.student.simulatedannealing.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -51,7 +50,7 @@ public class ClassInstantiator<T> {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 try {
-                    getMethod(key).invoke(object, Double.valueOf(value));
+                    getMethod(key).invoke(object, getParameter(value));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -61,6 +60,13 @@ public class ClassInstantiator<T> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private Object getParameter(String value) {
+        try {
+            return Double.valueOf(value);
+        } catch (Exception ignored) {}
+        return value;
     }
 
     private Method getMethod(String key) {

@@ -42,12 +42,12 @@ public class ClassInstantiatorTest {
         parameters.put("Second Param", "3");
         TestClassWithSetters testClass = classInstantiator.createObject(parameters);
         assertEquals("Cudo", testClass.firstParam);
-        assertEquals(3, testClass.secondParam);
+        assertEquals(3, testClass.secondParam, 0.001);
     }
 
     public static class TestClassWithSetters {
         private String firstParam;
-        private int secondParam;
+        private double secondParam;
 
         public TestClassWithSetters() {
 
@@ -57,7 +57,7 @@ public class ClassInstantiatorTest {
             this.firstParam = param;
         }
 
-        public void setSecondParam(int param) {
+        public void setSecondParam(double param) {
             this.secondParam = param;
         }
     }
