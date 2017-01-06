@@ -29,4 +29,16 @@ public class StatisticsPlot extends LineChart<Number, Number> {
         axis.setLabel(label);
         return axis;
     }
+
+    public void update(Statistics statistics) {
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        for (StatisticPoint entry : statistics.getStatistics()) {
+            XYChart.Data<Number, Number> dataEntry = new XYChart.Data<>(entry.getIteration(), entry.getValue());
+            series.getData().add(dataEntry);
+        }
+        series.setName("Objective function values");
+        setCreateSymbols(false);
+        getData().clear();
+        getData().add(series);
+    }
 }

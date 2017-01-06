@@ -19,6 +19,7 @@ import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
 import pl.edu.agh.student.simulatedannealing.mutator.Mutator;
 import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 import pl.edu.agh.student.simulatedannealing.solver.SimulatedAnnealingSolver;
+import pl.edu.agh.student.simulatedannealing.statistics.StatisticPoint;
 import pl.edu.agh.student.simulatedannealing.statistics.Statistics;
 import pl.edu.agh.student.simulatedannealing.temperature.Temperature;
 import pl.edu.agh.student.simulatedannealing.util.ClassInstantiator;
@@ -35,6 +36,8 @@ import static java.lang.Math.sin;
  * Created by pingwin on 10.12.16.
  */
 public class MainApplication extends Application {
+    private Stage primaryStage;
+
     private StatisticsPlot statisticsPlot;
     private OutputOfAlgorithm algorithmOutput;
     private VBox controlPane;
@@ -46,6 +49,9 @@ public class MainApplication extends Application {
     private Temperature temperature;
     private Collection<PizzaDeliverer> pizzaDeliverers;
     private Collection<Pizza> pizzasToDeliver;
+
+    private Statistics computationStatistics;
+    private ComputationState finalState;
 
     public static void main(String... args) {
         launch(args);
@@ -60,6 +66,7 @@ public class MainApplication extends Application {
         verticalLayout.getChildren().add(statisticsPlot);
         stage.setScene(new Scene(verticalLayout));
         stage.setResizable(false);
+        primaryStage = stage;
         stage.show();
     }
 
@@ -153,13 +160,20 @@ public class MainApplication extends Application {
                 inputBox.showAndWait();
                 Map<String, String> inputs = inputBox.getInputs();
                 int iterationCount = Integer.valueOf(inputs.get("Iteration Count"));
-                System.out.println("cudo");
-                solver.solve(startingPoint, iterationCount);
+                finalState = solver.solve(startingPoint, iterationCount);
+                computationStatistics = solver.getStatistics();
+                updateCharts();
             } else {
                 new ErrorDialog().show();
             }
         });
         return compute;
+    }
+
+    private void updateCharts() {
+        statisticsPlot.update(computationStatistics);
+        algorithmOutput.update(finalState);
+        primaryStage.show();
     }
 
     private void loadPizzasAndDeliverers() {

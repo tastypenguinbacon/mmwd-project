@@ -29,7 +29,7 @@ public class TestCases extends VBox {
             InputStream jsonDeliverers = getClass().getClassLoader().getResourceAsStream(deliverers);
             InputStream jsonPizzas = getClass().getClassLoader().getResourceAsStream(pizzas);
             List<PizzaDeliverer> delivererList = loader.loadDeliverers(jsonDeliverers);
-            List<Pizza> pizzaList = loader.loadPizzas(jsonPizzas);
+            List<Pizza> pizzaList = loader.loadPizzas(jsonPizzas);;
             button.setOnAction(event -> {
                 this.deliverers = delivererList;
                 this.pizzas = pizzaList;
@@ -46,6 +46,7 @@ public class TestCases extends VBox {
     }
 
     public List<PizzaDeliverer> getDeliverers() {
+        System.out.println(deliverers);
         return deliverers;
     }
 

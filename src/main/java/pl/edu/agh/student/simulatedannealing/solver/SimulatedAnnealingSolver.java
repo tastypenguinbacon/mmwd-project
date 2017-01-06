@@ -1,6 +1,7 @@
 package pl.edu.agh.student.simulatedannealing.solver;
 
 import pl.edu.agh.student.simulatedannealing.mutator.Mutator;
+import pl.edu.agh.student.simulatedannealing.statistics.Statistics;
 import pl.edu.agh.student.simulatedannealing.temperature.Temperature;
 
 import java.util.Random;
@@ -12,6 +13,7 @@ public class SimulatedAnnealingSolver<CurrentState> {
     private final Mutator<CurrentState> mutator;
     private final Temperature temperature;
     private final Function<CurrentState, Double> objectiveFunction;
+    private Statistics statistics = new Statistics();
 
     public SimulatedAnnealingSolver(Mutator<CurrentState> mutator, Temperature temperature,
                                     Function<CurrentState, Double> objectiveFunction) {
@@ -23,10 +25,11 @@ public class SimulatedAnnealingSolver<CurrentState> {
     public CurrentState solve(CurrentState startingPoint, int maxSteps) {
         CurrentState best = startingPoint;
         CurrentState current = startingPoint;
-
+        statistics.add(0, getObjectiveFunctionValue(startingPoint));
         for (int step = 0; step < maxSteps; step++) {
             double currentTemperature = temperature.getNextTemperature();
             CurrentState child = mutator.getNext(current);
+            statistics.add(step + 1, getObjectiveFunctionValue(child));
             double deltaE = getObjectiveFunctionValue(current) - getObjectiveFunctionValue(child);
 
             if (getObjectiveFunctionValue(child) > getObjectiveFunctionValue(best)) {
@@ -37,6 +40,10 @@ public class SimulatedAnnealingSolver<CurrentState> {
             }
         }
         return best;
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
     }
 
     private double getObjectiveFunctionValue(CurrentState sol) {
