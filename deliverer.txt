@@ -30,11 +30,12 @@
       "y" : 2
     }
   } ],
+  "route" : [ ],
   "currentPosition" : {
     "x" : 3,
     "y" : 6
   }
-}"currentPosition": {
+} {
     "x": 3,
     "y": 6
   }

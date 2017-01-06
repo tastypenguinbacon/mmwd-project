@@ -2,14 +2,10 @@ package pl.edu.agh.student.simulatedannealing.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -51,19 +47,19 @@ public class PizzaDeliverer implements Cloneable {
      */
     @JsonIgnore
     public boolean isAbleToCollectThePizzas() {
-        Set<Pizza> inBackpack = new HashSet<>(pizzasWeAreObligatedToDeliver);
-        Set<Pizza> delivered = new HashSet<>();
+        List<Pizza> backpack = new LinkedList<>(pizzasWeAreObligatedToDeliver);
+        List<Pizza> delivered = new LinkedList<>();
 
         Consumer<Point> pickUpPizzasFromPoint = (point) -> {
             for (Pizza pizza : pizzasWeCouldDeliver) {
                 if (pizza.getPosition().equals(point)) {
-                    inBackpack.add(pizza);
+                    backpack.add(pizza);
                 }
             }
         };
 
         BiFunction<Point, Integer, Boolean> deliverPizzasToPoint = (point, time) -> {
-            Iterator<Pizza> iter = inBackpack.iterator();
+            Iterator<Pizza> iter = backpack.iterator();
             while (iter.hasNext()) {
                 Pizza pizza = iter.next();
                 if (pizza.getDestination().equals(point)) {
@@ -95,7 +91,7 @@ public class PizzaDeliverer implements Cloneable {
                 return false;
         }
 
-        return inBackpack.isEmpty()
+        return backpack.isEmpty()
                 && delivered.containsAll(pizzasWeAreObligatedToDeliver)
                 && delivered.containsAll(pizzasWeCouldDeliver);
     }
@@ -129,6 +125,73 @@ public class PizzaDeliverer implements Cloneable {
     }
 
     /**
+     * Attempt inserting pizza and updating deliverer's route.
+     * @param pizza the Pizza object to be added to the deliverer
+     * @return true upon successful insertion, and false otherwise.
+     */
+
+    public boolean attemptInsertingPizza(Pizza pizza) {
+        pizzasWeCouldDeliver.add(pizza);
+        if (isAbleToCollectThePizzas())
+            return true;
+        pizzasWeCouldDeliver.remove(pizza);
+
+        return attemptInsertingPizzaAtRandomPosition(pizza);
+    }
+
+    private boolean attemptInsertingPizzaAtRandomPosition(Pizza pizza) {
+        List<Point> copyOfRoute = new LinkedList<>(route);
+        final Point start = pizza.getPosition();
+        final Point destination = pizza.getDestination();
+
+        List<Integer> validStartIndexes = resolveValidStartIndexes(start);
+
+        assert (route.containsAll(copyOfRoute) && copyOfRoute.containsAll(route));
+
+        //todo move rand to method parameter
+        Random rand = new Random();
+        Collections.shuffle(validStartIndexes, rand);
+        while (!validStartIndexes.isEmpty()) {
+            int startIndex = validStartIndexes.remove(0);
+            route.add(startIndex, start);
+
+            int index = startIndex + 1;
+            route.add(index, destination);
+            if (isAbleToCollectThePizzas())
+                return true;
+            for (index++; index < route.size(); index++) {
+                Collections.swap(route, index, index - 1);
+                if (isAbleToCollectThePizzas())
+                    return true;
+            }
+            assert (index == route.size());
+            route.remove(index - 1);
+        }
+
+        assert (route.containsAll(copyOfRoute) && copyOfRoute.containsAll(route));
+        return false;
+    }
+
+    private List<Integer> resolveValidStartIndexes(Point start) {
+        List<Integer> validStartIndexes = new LinkedList<>();
+        int index = 0;
+        route.add(index, start);
+        if (isAbleToCollectThePizzas()) {
+            validStartIndexes.add(index);
+        }
+        for (index = 1; index < route.size(); index++) {
+            Collections.swap(route, index, index - 1);
+            if (isAbleToCollectThePizzas()) {
+                validStartIndexes.add(index);
+            }
+        }
+        assert (index == route.size());
+        route.remove(index - 1);
+
+        return validStartIndexes;
+    }
+
+    /**
      * Returns a collection of pizzas which could be delivered. It's a snapshot copy of the original set to avoid
      * infinite loops like:
      *
@@ -158,31 +221,77 @@ public class PizzaDeliverer implements Cloneable {
         List<Point> copyOfRoute = new LinkedList<>(route);
 
         //try shortening route if possible possible
-        Point toBeRemoved = pizza.getPosition();
-        Iterator<Point> it = route.iterator();
-        while (it.hasNext()) {
-            Point point = it.next();
-            if (point.equals(toBeRemoved)) {
-                it.remove();
-                toBeRemoved = pizza.getDestination();
+        List<Pizza> backpack = new LinkedList<>(pizzasWeAreObligatedToDeliver);
+
+        //pick up pizzas and return number of pizzas picked up at this point
+        Function<Point, Integer> pickUpPizzasFromPoint = (point) -> {
+            int count = 0;
+            for (Pizza el : pizzasWeCouldDeliver) {
+                if (el.getPosition().equals(point)) {
+                    backpack.add(el);
+                    count++;
+                }
+            }
+            return count;
+        };
+
+        //deliver and return number of pizzas delivered at this point
+        Function<Point, Integer> deliverPizzasToPoint = (point) -> {
+            int count = 0;
+            Iterator<Pizza> iter = backpack.iterator();
+            while (iter.hasNext()) {
+                Pizza el = iter.next();
+                if (el.getDestination().equals(point)) {
+                    iter.remove();
+                    count++;
+                }
+            }
+            return count;
+        };
+
+        int pickupIndex = route.indexOf(pizza.getPosition());
+        int deliveryIndex = pickupIndex +
+                route.subList(pickupIndex, route.size()).indexOf(pizza.getDestination());
+
+        boolean safeToRemoveStart = false;
+        boolean safeToRemoveDestination = false;
+
+        //starting point cannot be removed but route has to be traversed
+        pickUpPizzasFromPoint.apply(currentPosition);
+        deliverPizzasToPoint.apply(currentPosition);
+
+        //traverse the route picking up and delivering pizzas
+        int currentIndex = 0;
+        for (Point currentPoint : route) {
+            int pickedUp = pickUpPizzasFromPoint.apply(currentPoint);
+            int delivered = deliverPizzasToPoint.apply(currentPoint);
+
+            if (currentIndex == pickupIndex)
+                safeToRemoveStart = (0 == pickedUp && 0 == delivered);
+            if (currentIndex == deliveryIndex) {
+                safeToRemoveDestination = (0 == pickedUp && 0 == delivered);
                 break;
             }
-        }
-        //important - iterating using the same iterator to remove first destination after pickup point
-        while (it.hasNext()) {
-            Point point = it.next();
-            if (point.equals(toBeRemoved)) {
-                it.remove();
-                break;
-            }
+
+            currentIndex++;
         }
 
+        if (pickupIndex == deliveryIndex) {
+            if (safeToRemoveStart && safeToRemoveDestination)
+                route.remove(pickupIndex);
+        } else {
+            if (safeToRemoveDestination)
+                route.remove(deliveryIndex);
+            if (safeToRemoveStart)
+                route.remove(pickupIndex);
+        }
+
+        //todo check if this can be removed (the route should never be broken after pizza removal)
         //if the new route is not valid fallback to starting route
         if (!isAbleToCollectThePizzas()) {
             route = copyOfRoute;
         }
     }
-
 
     /**
      * These are the pizzas the deliverer already took with him. Should be used by the Json parsers.
@@ -209,6 +318,8 @@ public class PizzaDeliverer implements Cloneable {
     }
 
     public void setRoute(List<Point> route) { this.route = route; }
+
+    public List<Point> getRoute() { return this.route; }
 
     @Override
     public boolean equals(Object o) {

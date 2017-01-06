@@ -61,4 +61,21 @@ public class ComputationState {
         }
         assert false : "Couldn't find the order to be removed.";
     }
+
+    /**
+     * Attempts to add the specified pizza to random valid deliverer.
+     * Tries inserting into consecutive deliverers until success or deliverer route exhaustion.
+     *
+     * @return true upon successful addition of the pizza. False otherwise.
+     */
+    public boolean addPizzaToSolution(Pizza toBeAdded) {
+        List<PizzaDeliverer> deliverers = new LinkedList<>(pizzaDeliverers);
+        //todo maybe move random to parameter
+        Collections.shuffle(deliverers, new Random());
+
+        for (PizzaDeliverer candidate : pizzaDeliverers)
+            if (candidate.attemptInsertingPizza(toBeAdded))
+                return true;
+        return false;
+    }
 }

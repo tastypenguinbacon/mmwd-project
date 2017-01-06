@@ -13,6 +13,28 @@ import static org.junit.Assert.assertTrue;
  * Created by Ja on 2017-01-04.
  */
 public class PizzaDelivererTest {
+    @Test
+    public void attemptInsertingPizzaTest() throws Exception {
+        //todo test for insertion
+    }
+
+    @Test
+    public void routeIsShorterAfterRemovalTest() {
+        Point start = new Point(2,2);
+        Point destination = new Point(3,3);
+        Pizza toBeRemoved = new Pizza(start, destination);
+        int originalRouteSize = deliverer.getRoute().size();
+
+        //assert valid setup
+        assert (deliverer.getAssignedPizzas().contains(toBeRemoved));
+
+        deliverer.removePizza(toBeRemoved);
+        int newRouteSize = deliverer.getRoute().size();
+
+        //the route should in general be shorter or stay the same
+        //in this specially prepared test case, route lenght should be decrease
+        assertTrue(newRouteSize < originalRouteSize);
+    }
 
     private PizzaDeliverer deliverer;
 

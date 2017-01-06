@@ -3,10 +3,9 @@ package pl.edu.agh.student.simulatedannealing.mutator;
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
 import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
+import static java.lang.Math.min;
 
 /**
  * Created by Szymek on 2017-01-03.
@@ -20,15 +19,23 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
     public ComputationState getNext(ComputationState parent) {
         ComputationState child = new ComputationState(parent);
 
-        boolean modified = removeRandomPizza(child);
-        if (modified)
-            return child;
-        else
-            return parent;
+        List<Pizza> notDeliveredYet = new LinkedList<>(pizzasToDeliver);
+        notDeliveredYet.removeAll(child.getPotentialPizzas());
+        Collections.shuffle(notDeliveredYet, generator);
 
-        //todo adding new pizzas!!!
-        //currently the method can only remove pizzas
+        //todo - move to field and add setter
+        int maxInsertionAttempts = 10;
+        int limit = min(notDeliveredYet.size(), maxInsertionAttempts);
 
+        boolean modified = addPizzaFromList(child, notDeliveredYet.subList(0, limit));
+        if (!modified)
+            modified = removeRandomPizza(child);
+        if (!modified)
+            addPizzaFromList(child, notDeliveredYet.subList(limit, notDeliveredYet.size()));
+
+        assert (child.isValid());
+
+        return child;
     }
 
     @Override
@@ -48,5 +55,13 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
             return false;
         solution.removePizzaFromSolution(pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size())));
         return true;
+    }
+
+    private boolean addPizzaFromList(ComputationState solution, List<Pizza> candidatePizzas) {
+        for (Pizza toBeInserted : candidatePizzas) {
+            if (solution.addPizzaToSolution(toBeInserted))
+                return true;
+        }
+        return false;
     }
 }
