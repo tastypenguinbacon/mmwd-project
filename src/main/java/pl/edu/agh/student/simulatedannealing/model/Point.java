@@ -2,6 +2,8 @@ package pl.edu.agh.student.simulatedannealing.model;
 
 import java.io.Serializable;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by pingwin on 01.01.17.
  */
@@ -47,5 +49,12 @@ public class Point implements Serializable {
         int result = x;
         result = 31 * result + y;
         return result;
+    }
+
+    int distanceTo(Point other) {
+        if (null == other) {
+            throw new NullPointerException("You can only measure distance to another Point.");
+        }
+        return abs(this.x - other.x) + abs(this.y - other.y);
     }
 }
