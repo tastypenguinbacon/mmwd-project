@@ -156,7 +156,6 @@ public class PizzaDeliverer implements Cloneable {
         pizzasWeCouldDeliver.remove(pizza);
 
         List<Point> copyOfRoute = new LinkedList<>(route);
-        route = copyOfRoute;
 
         //try shortening route if possible possible
         Point toBeRemoved = pizza.getPosition();
