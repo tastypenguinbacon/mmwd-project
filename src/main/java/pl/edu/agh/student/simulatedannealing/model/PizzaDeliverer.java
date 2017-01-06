@@ -17,11 +17,9 @@ import java.util.stream.Collectors;
  */
 public class PizzaDeliverer implements Cloneable {
 
-    // todo important:
-    // consider changing set to list to handle identical pizza orders
-    
-    private Set<Pizza> pizzasWeAreObligatedToDeliver = new HashSet<>();
-    private Set<Pizza> pizzasWeCouldDeliver = new HashSet<>();
+
+    private List<Pizza> pizzasWeAreObligatedToDeliver = new LinkedList<>();
+    private List<Pizza> pizzasWeCouldDeliver = new LinkedList<>();
     private List<Point> route = new LinkedList<>();
 
     private Point currentPosition;
@@ -31,6 +29,14 @@ public class PizzaDeliverer implements Cloneable {
 
     public PizzaDeliverer(Point position) {
         this.currentPosition = position;
+    }
+
+    //copy constructor
+    public PizzaDeliverer(PizzaDeliverer other) {
+        this.pizzasWeAreObligatedToDeliver = other.pizzasWeAreObligatedToDeliver;
+        this.pizzasWeCouldDeliver = new LinkedList<>(other.pizzasWeCouldDeliver);
+        this.route = new LinkedList<>(other.route);
+        this.currentPosition = other.currentPosition;
     }
 
     /**
@@ -51,7 +57,7 @@ public class PizzaDeliverer implements Cloneable {
         Consumer<Point> pickUpPizzasFromPoint = (point) -> {
             for (Pizza pizza : pizzasWeCouldDeliver) {
                 if (pizza.getPosition().equals(point)) {
-                    inBackpack.add(pizza);// local var
+                    inBackpack.add(pizza);
                 }
             }
         };
@@ -108,7 +114,9 @@ public class PizzaDeliverer implements Cloneable {
     public PizzaDeliverer clone() throws CloneNotSupportedException {
         PizzaDeliverer delivererClone = (PizzaDeliverer) super.clone();
         delivererClone.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
-        delivererClone.pizzasWeCouldDeliver = pizzasWeCouldDeliver.stream().collect(Collectors.toSet());
+        delivererClone.pizzasWeCouldDeliver = pizzasWeCouldDeliver.stream().collect(Collectors.toList());
+        delivererClone.route = route.stream().collect(Collectors.toList());
+        delivererClone.currentPosition = currentPosition;
         return delivererClone;
     }
 
@@ -131,16 +139,49 @@ public class PizzaDeliverer implements Cloneable {
      * @return Returns the pizzas which could be delivered
      */
     @JsonIgnore
-    public Collection<Pizza> getAssignedPizzas() {
-        return new HashSet<>(pizzasWeCouldDeliver);
-    }
+    public Collection<Pizza> getAssignedPizzas() { return new HashSet<>(pizzasWeCouldDeliver); }
+
+    @JsonIgnore
+    public List<Pizza> getPizzasWeCouldDeliver() { return pizzasWeCouldDeliver; }
 
     /**
      * Should be used while mutating the current state.
+     * It removes the pizza from the list of assigned pizzas.
+     * Then tries to shorten the route (remove pickup and delivery points).
+     * If the route shortening was not possible leaves the route unchanged.
+     *
      * @param pizza pizza to be removed from the pizzas we could deliver
      */
     public void removePizza(Pizza pizza) {
         pizzasWeCouldDeliver.remove(pizza);
+
+        List<Point> copyOfRoute = new LinkedList<>(route);
+        route = copyOfRoute;
+
+        //try shortening route if possible possible
+        Point toBeRemoved = pizza.getPosition();
+        Iterator<Point> it = route.iterator();
+        while (it.hasNext()) {
+            Point point = it.next();
+            if (point.equals(toBeRemoved)) {
+                it.remove();
+                toBeRemoved = pizza.getDestination();
+                break;
+            }
+        }
+        //important - iterating using the same iterator to remove first destination after pickup point
+        while (it.hasNext()) {
+            Point point = it.next();
+            if (point.equals(toBeRemoved)) {
+                it.remove();
+                break;
+            }
+        }
+
+        //if the new route is not valid fallback to starting route
+        if (!isAbleToCollectThePizzas()) {
+            route = copyOfRoute;
+        }
     }
 
 
@@ -148,7 +189,7 @@ public class PizzaDeliverer implements Cloneable {
      * These are the pizzas the deliverer already took with him. Should be used by the Json parsers.
      * @return the pizzas the deliverer has already with him.
      */
-    public Set<Pizza> getPizzasWeAreObligatedToDeliver() {
+    public List<Pizza> getPizzasWeAreObligatedToDeliver() {
         return pizzasWeAreObligatedToDeliver;
     }
 
@@ -156,7 +197,7 @@ public class PizzaDeliverer implements Cloneable {
      * Should be used mostly for Json deserialization purposes.
      * @param pizzasWeAreObligatedToDeliver
      */
-    public void setPizzasWeAreObligatedToDeliver(Set<Pizza> pizzasWeAreObligatedToDeliver) {
+    public void setPizzasWeAreObligatedToDeliver(List<Pizza> pizzasWeAreObligatedToDeliver) {
         this.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
     }
 
