@@ -14,7 +14,7 @@ public class SimulatedAnnealingSolver<CurrentState> {
     private final Function<CurrentState, Double> objectiveFunction;
 
     public SimulatedAnnealingSolver(Mutator<CurrentState> mutator, Temperature temperature,
-                                     Function<CurrentState, Double> objectiveFunction) {
+                                    Function<CurrentState, Double> objectiveFunction) {
         this.mutator = mutator;
         this.temperature = temperature;
         this.objectiveFunction = objectiveFunction;
@@ -27,9 +27,9 @@ public class SimulatedAnnealingSolver<CurrentState> {
         for (int step = 0; step < maxSteps; step++) {
             double currentTemperature = temperature.getNextTemperature();
             CurrentState child = mutator.getNext(current);
-            double deltaE = getObjectiveFunctionValue(child) - getObjectiveFunctionValue(current);
+            double deltaE = getObjectiveFunctionValue(current) - getObjectiveFunctionValue(child);
 
-            if (getObjectiveFunctionValue(child) < getObjectiveFunctionValue(best)) {
+            if (getObjectiveFunctionValue(child) > getObjectiveFunctionValue(best)) {
                 best = child;
             }
             if (shouldAccept(deltaE, currentTemperature)) {

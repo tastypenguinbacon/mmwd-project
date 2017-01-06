@@ -37,9 +37,9 @@ public class ClassInstantiatorTest {
     @Test
     public void givenParametersAssemblesTheObject() {
         ClassInstantiator<TestClassWithSetters> classInstantiator = new ClassInstantiator<>(object.getClass().getName());
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, String> parameters = new HashMap<>();
         parameters.put("First Param", "Cudo");
-        parameters.put("Second Param", 3);
+        parameters.put("Second Param", "3");
         TestClassWithSetters testClass = classInstantiator.createObject(parameters);
         assertEquals("Cudo", testClass.firstParam);
         assertEquals(3, testClass.secondParam);

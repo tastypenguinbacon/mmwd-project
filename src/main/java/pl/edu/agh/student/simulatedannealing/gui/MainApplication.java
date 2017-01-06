@@ -2,12 +2,9 @@ package pl.edu.agh.student.simulatedannealing.gui;
 
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pl.edu.agh.student.simulatedannealing.ObjectiveFunction.ObjectiveFunction;
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
@@ -31,7 +27,6 @@ import pl.edu.agh.student.simulatedannealing.util.JsonLoader;
 import java.io.InputStream;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.exp;
 import static java.lang.Math.sin;
@@ -158,6 +153,7 @@ public class MainApplication extends Application {
                 inputBox.showAndWait();
                 Map<String, String> inputs = inputBox.getInputs();
                 int iterationCount = Integer.valueOf(inputs.get("Iteration Count"));
+                System.out.println("cudo");
                 solver.solve(startingPoint, iterationCount);
             } else {
                 new ErrorDialog().show();
