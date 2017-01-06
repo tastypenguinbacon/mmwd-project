@@ -150,6 +150,8 @@ public class MainApplication extends Application {
             loadPizzasAndDeliverers();
             if (parametersAreNotNull()) {
                 SimulatedAnnealingSolver<ComputationState> solver;
+                mutator.addPizzasToDistribute(pizzasToDeliver);
+                temperature.reset();
                 solver = new SimulatedAnnealingSolver<>(mutator, temperature, new ObjectiveFunction());
                 ComputationState startingPoint = new ComputationState(pizzaDeliverers);
                 InputBox inputBox = new InputBox(Arrays.asList("Iteration Count"));

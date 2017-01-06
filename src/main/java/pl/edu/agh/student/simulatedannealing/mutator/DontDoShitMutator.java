@@ -8,6 +8,6 @@ import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 public class DontDoShitMutator implements Mutator<ComputationState> {
     @Override
     public ComputationState getNext(ComputationState computationState) {
-        return null;
+        return computationState;
     }
 }

@@ -6,4 +6,5 @@ package pl.edu.agh.student.simulatedannealing.temperature;
 @FunctionalInterface
 public interface Temperature {
     double getNextTemperature();
+    default void reset() {}
 }

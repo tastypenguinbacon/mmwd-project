@@ -6,9 +6,11 @@ package pl.edu.agh.student.simulatedannealing.temperature;
 public class LinearlyDecreasingTemperature implements Temperature{
     private double decrement;
     private double currentTemperature;
+    private double startingTemperature;
 
     public LinearlyDecreasingTemperature(double startingTemperature, double decrement) {
         this.currentTemperature = startingTemperature;
+        this.startingTemperature = startingTemperature;
         this.decrement = decrement;
     }
 
@@ -18,10 +20,16 @@ public class LinearlyDecreasingTemperature implements Temperature{
 
     public void setStartingTemperature(double startingTemperature) {
         this.currentTemperature = startingTemperature;
+        this.startingTemperature = startingTemperature;
     }
 
     public void setDecrement(double decrement) {
         this.decrement = decrement;
+    }
+
+    @Override
+    public void reset() {
+        this.currentTemperature = startingTemperature;
     }
 
     @Override
