@@ -44,14 +44,14 @@ public class ClassInstantiator<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T createObject(Map<String, ? extends Object> parameters) {
+    public T createObject(Map<String, String> parameters) {
         try {
             Object object = clas.getConstructor().newInstance();
             parameters.entrySet().forEach(entry -> {
                 String key = entry.getKey();
-                Object value = entry.getValue();
+                String value = entry.getValue();
                 try {
-                    getMethod(key).invoke(object, value);
+                    getMethod(key).invoke(object, Double.valueOf(value));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -73,7 +73,6 @@ public class ClassInstantiator<T> {
         List<Method> collect = Arrays.stream(clas.getMethods())
                 .filter(method -> method.getName().matches(methodName))
                 .collect(Collectors.toList());
-        System.out.println(methodName);
         return collect.get(0);
     }
 }
