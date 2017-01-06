@@ -46,7 +46,6 @@ public class TestCases extends VBox {
     }
 
     public List<PizzaDeliverer> getDeliverers() {
-        System.out.println(deliverers);
         return deliverers;
     }
 

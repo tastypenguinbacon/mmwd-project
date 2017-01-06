@@ -13,7 +13,7 @@ public class ComputationState {
     private final LinkedList<PizzaDeliverer> pizzaDeliverers;
 
     public ComputationState(Collection<PizzaDeliverer> pizzaDeliverers) {
-        this.pizzaDeliverers = new LinkedList<>();
+        this.pizzaDeliverers = new LinkedList<>(pizzaDeliverers);
     }
 
     //copy constructor with deep copy

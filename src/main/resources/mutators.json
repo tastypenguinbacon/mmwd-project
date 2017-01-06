@@ -1,3 +1,4 @@
 {
-  "Don't do shit": "pl.edu.agh.student.simulatedannealing.mutator.DontDoShitMutator"
+  "Don't do shit": "pl.edu.agh.student.simulatedannealing.mutator.DontDoShitMutator",
+  "Do shit": "pl.edu.agh.student.simulatedannealing.mutator.ComputationStateMutator"
 }
