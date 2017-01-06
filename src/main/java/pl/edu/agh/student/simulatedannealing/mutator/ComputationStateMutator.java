@@ -1,9 +1,10 @@
 package pl.edu.agh.student.simulatedannealing.mutator;
 
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
-import pl.edu.agh.student.simulatedannealing.mutator.Mutator;
 import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +13,6 @@ import java.util.Random;
  */
 public class ComputationStateMutator implements Mutator<ComputationState> {
     private List<Pizza> pizzasToDeliver;
-    private List<Pizza> pizzasWeAreObligatedToDeliver;
 
     private Random generator = new Random();
 
@@ -31,6 +31,11 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
 
     }
 
+    @Override
+    public void addPizzasToDistribute(Collection<Pizza> pizzasToDistribute) {
+        this.pizzasToDeliver = new LinkedList<>(pizzasToDistribute);
+    }
+
     /**
      * This function attempts to remove a randomly chosen pizza from the solution.
      * The pool of pizzas eligible for removal consists of all pizzas in the deliverer's pizzasWeCouldDeliver field.
@@ -43,13 +48,5 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
             return false;
         solution.removePizzaFromSolution(pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size())));
         return true;
-    }
-
-    public void initializePizzasToDeliver(List<Pizza> pizzasToDeliver) {
-        this.pizzasToDeliver = pizzasToDeliver;
-    }
-
-    public void initializePizzasWeAreObligatedToDeliver(List<Pizza> pizzasWeAreObligatedToDeliver) {
-        this.pizzasWeAreObligatedToDeliver = pizzasWeAreObligatedToDeliver;
     }
 }
