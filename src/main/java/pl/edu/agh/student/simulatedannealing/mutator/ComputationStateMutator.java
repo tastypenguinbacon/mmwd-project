@@ -23,7 +23,7 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
         notDeliveredYet.removeAll(child.getPotentialPizzas());
         Collections.shuffle(notDeliveredYet, generator);
 
-        //todo - move to field and add setter
+        /*//todo - move to field and add setter
         int maxInsertionAttempts = 10;
         int limit = min(notDeliveredYet.size(), maxInsertionAttempts);
 
@@ -31,7 +31,11 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
         if (!modified)
             modified = removeRandomPizza(child);
         if (!modified)
-            addPizzaFromList(child, notDeliveredYet.subList(limit, notDeliveredYet.size()));
+            addPizzaFromList(child, notDeliveredYet.subList(limit, notDeliveredYet.size()));*/
+
+        boolean modified = addPizzaFromList(child, notDeliveredYet);
+        if (!modified)
+            removeRandomPizza(child);
 
         assert (child.isValid());
 
