@@ -43,23 +43,23 @@ public class PizzaDelivererItem extends ImageView {
                 plot.redraw();
             });
             infoBox.addButton(button);
-            button = new Button("Add pizza to backpack");
-            button.setPadding(new Insets(20));
-            button.setOnAction(actionEvent -> {
-                InputBox inputBox = new InputBox(Arrays.asList("Destination X", "Destination Y", "Time until cold"));
-                inputBox.showAndWait();
-                Map<String, String> inputs = inputBox.getInputs();
-                int timeUntilCold = Integer.valueOf(inputs.get("Time until cold"));
-                int destinationX = Integer.valueOf(inputs.get("Destination X"));
-                int destinationY = Integer.valueOf(inputs.get("Destination Y"));
-                Pizza pizzaToDeliver = new Pizza(new Point(0,0), new Point(destinationX, destinationY));
-                pizzaToDeliver.setTimeUntilCold(timeUntilCold);
-                pizzaDeliverer.getPizzasWeAreObligatedToDeliver().add(pizzaToDeliver);
-                infoBox.add("Must deliver to:", pizzaToDeliver.getDestination().getX() + " " + pizzaToDeliver.getDestination().getY());
-                infoBox.close();
-                infoBox.show();
-            });
-            infoBox.addButton(button);
+//            button = new Button("Add pizza to backpack");
+//            button.setPadding(new Insets(20));
+//            button.setOnAction(actionEvent -> {
+//                InputBox inputBox = new InputBox(Arrays.asList("Destination X", "Destination Y", "Time until cold"));
+//                inputBox.showAndWait();
+//                Map<String, String> inputs = inputBox.getInputs();
+//                int timeUntilCold = Integer.valueOf(inputs.get("Time until cold"));
+//                int destinationX = Integer.valueOf(inputs.get("Destination X"));
+//                int destinationY = Integer.valueOf(inputs.get("Destination Y"));
+//                Pizza pizzaToDeliver = new Pizza(new Point(0,0), new Point(destinationX, destinationY));
+//                pizzaToDeliver.setTimeUntilCold(timeUntilCold);
+//                pizzaDeliverer.getPizzasWeAreObligatedToDeliver().add(pizzaToDeliver);
+//                infoBox.add("Must deliver to:", pizzaToDeliver.getDestination().getX() + " " + pizzaToDeliver.getDestination().getY());
+//                infoBox.close();
+//                infoBox.show();
+//            });
+//            infoBox.addButton(button);
             infoBox.show();
         });
     }

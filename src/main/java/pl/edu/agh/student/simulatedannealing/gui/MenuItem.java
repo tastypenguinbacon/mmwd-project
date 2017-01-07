@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
  */
 public class MenuItem extends Button {
     public MenuItem() {
-        this.setPadding(new Insets(20));
-        this.setMinSize(200, 50);
+        this.setPadding(new Insets(10));
+        this.setMinSize(200, 20);
     }
 }
