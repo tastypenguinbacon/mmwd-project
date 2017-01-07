@@ -1,6 +1,7 @@
 package pl.edu.agh.student.simulatedannealing.mutator;
 
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
+import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
 import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 
 import java.util.*;
@@ -57,15 +58,44 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
         List<Pizza> pizzasThatMayBeRemoved = solution.getPotentialPizzas();
         if (pizzasThatMayBeRemoved.isEmpty())
             return false;
-        solution.removePizzaFromSolution(pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size())));
+        Pizza toBeRemoved = pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size()));
+        removePizzaFromSolution(toBeRemoved, solution);
         return true;
+    }
+
+    /**
+     * Removes the specified pizza from the specified solution.
+     * The specified pizza should be part of the solution.
+     */
+    private void removePizzaFromSolution(Pizza toBeRemoved, ComputationState solution) {
+        for (PizzaDeliverer deliverer : solution.getPizzaDeliverers()) {
+            if (deliverer.getPizzasWeCouldDeliver().contains(toBeRemoved)) {
+                deliverer.removePizza(toBeRemoved);
+                return;
+            }
+        }
+        assert false : "Couldn't find the order to be removed.";
     }
 
     private boolean addPizzaFromList(ComputationState solution, List<Pizza> candidatePizzas) {
         for (Pizza toBeInserted : candidatePizzas) {
-            if (solution.addPizzaToSolution(toBeInserted))
+            if (addPizzaToSolution(toBeInserted, solution))
                 return true;
         }
+        return false;
+    }
+
+    /**
+     * //todo currently always tries insertion starting from first deliverer to last
+     * Attempts to add the specified pizza to random valid deliverer in the specified solution.
+     * Tries inserting into consecutive deliverers until success or deliverer route exhaustion.
+     *
+     * @return true upon successful addition of the pizza. False otherwise.
+     */
+    private boolean addPizzaToSolution(Pizza toBeAdded, ComputationState solution) {
+        for (PizzaDeliverer candidate : solution.getPizzaDeliverers())
+            if (candidate.attemptInsertingPizza(toBeAdded))
+                return true;
         return false;
     }
 }
