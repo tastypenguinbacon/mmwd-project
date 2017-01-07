@@ -11,10 +11,9 @@ import static java.lang.Math.min;
 /**
  * Created by Szymek on 2017-01-03.
  */
-public class ComputationStateMutator implements Mutator<ComputationState> {
-    private List<Pizza> pizzasToDeliver;
+public class ComputationStateMutator extends ComputationStateMutatorBase {
 
-    private Random generator = new Random();
+    //private Random generator = new Random();
 
     @Override
     public ComputationState getNext(ComputationState parent) {
@@ -63,39 +62,5 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
         return true;
     }
 
-    /**
-     * Removes the specified pizza from the specified solution.
-     * The specified pizza should be part of the solution.
-     */
-    private void removePizzaFromSolution(Pizza toBeRemoved, ComputationState solution) {
-        for (PizzaDeliverer deliverer : solution.getPizzaDeliverers()) {
-            if (deliverer.getPizzasWeCouldDeliver().contains(toBeRemoved)) {
-                deliverer.removePizza(toBeRemoved);
-                return;
-            }
-        }
-        assert false : "Couldn't find the order to be removed.";
-    }
 
-    private boolean addPizzaFromList(ComputationState solution, List<Pizza> candidatePizzas) {
-        for (Pizza toBeInserted : candidatePizzas) {
-            if (addPizzaToSolution(toBeInserted, solution))
-                return true;
-        }
-        return false;
-    }
-
-    /**
-     * //todo currently always tries insertion starting from first deliverer to last
-     * Attempts to add the specified pizza to random valid deliverer in the specified solution.
-     * Tries inserting into consecutive deliverers until success or deliverer route exhaustion.
-     *
-     * @return true upon successful addition of the pizza. False otherwise.
-     */
-    private boolean addPizzaToSolution(Pizza toBeAdded, ComputationState solution) {
-        for (PizzaDeliverer candidate : solution.getPizzaDeliverers())
-            if (candidate.attemptInsertingPizza(toBeAdded))
-                return true;
-        return false;
-    }
 }
