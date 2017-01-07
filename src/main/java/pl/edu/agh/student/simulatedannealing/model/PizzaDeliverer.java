@@ -47,8 +47,8 @@ public class PizzaDeliverer implements Cloneable {
      */
     @JsonIgnore
     public boolean isAbleToCollectThePizzas() {
-        List<Pizza> backpack = new LinkedList<>(pizzasWeAreObligatedToDeliver);
-        List<Pizza> delivered = new LinkedList<>();
+        final List<Pizza> backpack = new LinkedList<>(pizzasWeAreObligatedToDeliver);
+        final List<Pizza> delivered = new LinkedList<>();
 
         Consumer<Point> pickUpPizzasFromPoint = (point) -> {
             for (Pizza pizza : pizzasWeCouldDeliver) {
@@ -260,7 +260,7 @@ public class PizzaDeliverer implements Cloneable {
         List<Point> copyOfRoute = new LinkedList<>(route);
 
         //try shortening route if possible possible
-        List<Pizza> backpack = new LinkedList<>(pizzasWeAreObligatedToDeliver);
+        final List<Pizza> backpack = new LinkedList<>(pizzasWeAreObligatedToDeliver);
 
         //pick up pizzas and return number of pizzas picked up at this point
         Function<Point, Integer> pickUpPizzasFromPoint = (point) -> {
