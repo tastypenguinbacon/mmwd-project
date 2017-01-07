@@ -41,11 +41,4 @@ public class JsonLoaderTest {
             System.out.println(resource.get(JsonLoader.DELIVERERS));
         });
     }
-
-    @Test
-    public void loadTemperatures() {
-        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("temperatures.json");
-        JsonLoader jsonLoader = new JsonLoader();
-        //Map<String, Temperature> temperatures = jsonLoader.getProperties(resourceAsStream);
-    }
 }

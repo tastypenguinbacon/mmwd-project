@@ -57,8 +57,16 @@ public class MainApplication extends Application {
         launch(args);
     }
 
+    public void redrawAlgorithmOutput() {
+        loadPizzasAndDeliverers();
+        algorithmOutput.setPizzaDeliverers(new LinkedList<>(pizzaDeliverers));
+        algorithmOutput.setPizzasToDeliver(new LinkedList<>(pizzasToDeliver));
+        algorithmOutput.redraw();
+    }
+
     @Override
     public void start(final Stage stage) {
+        primaryStage = stage;
         initialize();
         HBox verticalLayout = new HBox(20);
         verticalLayout.getChildren().add(controlPane);
@@ -66,7 +74,6 @@ public class MainApplication extends Application {
         verticalLayout.getChildren().add(statisticsPlot);
         stage.setScene(new Scene(verticalLayout));
         stage.setResizable(false);
-        primaryStage = stage;
         stage.show();
     }
 
@@ -97,7 +104,7 @@ public class MainApplication extends Application {
 
     private TestCases getSampleTestCases() {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("resource_mappings.json");
-        testCases = new TestCases(inputStream);
+        testCases = new TestCases(inputStream, this);
         return testCases;
     }
 
@@ -149,7 +156,8 @@ public class MainApplication extends Application {
         compute.setText("Compute");
 
         compute.setOnAction(event -> {
-            loadPizzasAndDeliverers();
+            pizzaDeliverers = algorithmOutput.getPizzaDeliverers();
+            pizzasToDeliver = algorithmOutput.getPizzasToDeliver();
             if (parametersAreNotNull()) {
                 SimulatedAnnealingSolver<ComputationState> solver;
                 mutator.addPizzasToDistribute(pizzasToDeliver);
@@ -202,6 +210,6 @@ public class MainApplication extends Application {
     }
 
     private OutputOfAlgorithm getAlgorithmOutput() {
-        return new OutputOfAlgorithm();
+        return new OutputOfAlgorithm(primaryStage);
     }
 }

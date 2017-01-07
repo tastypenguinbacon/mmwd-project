@@ -202,7 +202,7 @@ public class PizzaDeliverer implements Cloneable {
      * @return Returns the pizzas which could be delivered
      */
     @JsonIgnore
-    public Collection<Pizza> getAssignedPizzas() { return new HashSet<>(pizzasWeCouldDeliver); }
+    public Collection<Pizza> getAssignedPizzas() { return new LinkedList<>(pizzasWeCouldDeliver); }
 
     @JsonIgnore
     public List<Pizza> getPizzasWeCouldDeliver() { return pizzasWeCouldDeliver; }
@@ -327,6 +327,9 @@ public class PizzaDeliverer implements Cloneable {
         if (o == null || getClass() != o.getClass()) return false;
 
         PizzaDeliverer deliverer = (PizzaDeliverer) o;
+
+        if (currentPosition != null ? !currentPosition.equals(deliverer.currentPosition) : deliverer.currentPosition != null)
+            return false;
 
         if (pizzasWeAreObligatedToDeliver != null ? !pizzasWeAreObligatedToDeliver.equals(deliverer.pizzasWeAreObligatedToDeliver) : deliverer.pizzasWeAreObligatedToDeliver != null)
             return false;

@@ -16,7 +16,7 @@ public class TestCases extends VBox {
     private List<PizzaDeliverer> deliverers;
     private List<Pizza> pizzas;
 
-    public TestCases(InputStream resourceMappings) {
+    public TestCases(InputStream resourceMappings, MainApplication mainApplication) {
         super(10);
         JsonLoader loader = new JsonLoader();
         List<Map<String, String>> buttons;
@@ -33,6 +33,7 @@ public class TestCases extends VBox {
             button.setOnAction(event -> {
                 this.deliverers = delivererList;
                 this.pizzas = pizzaList;
+                mainApplication.redrawAlgorithmOutput();
             });
             this.getChildren().add(button);
         });
@@ -41,6 +42,7 @@ public class TestCases extends VBox {
         customArrangement.setOnAction(event -> {
             this.deliverers = null;
             this.pizzas = null;
+            mainApplication.redrawAlgorithmOutput();
         });
         this.getChildren().add(customArrangement);
     }
