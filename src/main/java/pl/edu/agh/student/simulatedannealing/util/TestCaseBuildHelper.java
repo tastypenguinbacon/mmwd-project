@@ -82,6 +82,17 @@ public class TestCaseBuildHelper {
                         }
                     }
                     deliverer.setPizzasWeAreObligatedToDeliver(pizzas);
+
+                    List<Point> route = new LinkedList<>();
+                    System.out.println("Input the order of the route (has to be valid), indexing starts from 1");
+                    inputs = scanner.nextLine().trim().split(" ");
+                    try {
+                        for (String routeElement : inputs) {
+                            route.add(pizzas.get(Integer.valueOf(routeElement) - 1).getDestination());
+                        }
+                    } catch (Exception ignored) {
+                    }
+                    deliverer.setRoute(route);
                     pizzaDeliverers.add(deliverer);
                 } catch (Exception ignored) {
                 }
