@@ -243,8 +243,19 @@ public class PizzaDeliverer implements Cloneable {
     @JsonIgnore
     public Collection<Pizza> getAssignedPizzas() { return new LinkedList<>(pizzasWeCouldDeliver); }
 
-    @JsonIgnore
+    /**
+     * These are the pizzas the deliverer has to pick up an later deliver. Should be used by the Json parsers.
+     * @return the pizzas the deliverer has to pick up and deliver.
+     */
     public List<Pizza> getPizzasWeCouldDeliver() { return pizzasWeCouldDeliver; }
+
+    /**
+     * Should be used mostly for Json deserialization purposes.
+     * @param pizzasWeCouldDeliver
+     */
+    public void setPizzasWeCouldDeliver(List<Pizza> pizzasWeCouldDeliver) {
+        this.pizzasWeCouldDeliver = pizzasWeCouldDeliver;
+    }
 
     /**
      * Should be used while mutating the current state.

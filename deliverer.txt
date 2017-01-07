@@ -30,6 +30,7 @@
       "y" : 2
     }
   } ],
+  "pizzasWeCouldDeliver" : [ ],
   "route" : [ ],
   "currentPosition" : {
     "x" : 3,
