@@ -32,11 +32,17 @@ public class StatisticsPlot extends LineChart<Number, Number> {
 
     public void update(Statistics statistics) {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        int maxIteration = Integer.MIN_VALUE;
+        int maxValue = Integer.MIN_VALUE;
         for (StatisticPoint entry : statistics.getStatistics()) {
+            if (entry.getValue() > maxValue) {
+                maxValue = (int) entry.getValue();
+                maxIteration = entry.getIteration();
+            }
             XYChart.Data<Number, Number> dataEntry = new XYChart.Data<>(entry.getIteration(), entry.getValue());
             series.getData().add(dataEntry);
         }
-        series.setName("Objective function values");
+        series.setName("Objective function values, max value is " + maxValue + " at iteration " + maxIteration + ".");
         setCreateSymbols(false);
         getData().clear();
         getData().add(series);
