@@ -367,8 +367,10 @@ public class PizzaDeliverer implements Cloneable {
         this.currentPosition = currentPosition;
     }
 
+    @JsonIgnore
     public void setRoute(List<Point> route) { this.route = route; }
 
+    @JsonIgnore
     public List<Point> getRoute() { return this.route; }
 
     @Override
