@@ -14,8 +14,37 @@ import static org.junit.Assert.assertTrue;
  */
 public class PizzaDelivererTest {
     @Test
-    public void attemptInsertingPizzaTest() throws Exception {
+    public void checkThatInsertionIsNotPossibleTest() {
         //todo test for insertion
+        Pizza toBeInserted = new Pizza();
+        Point start = new Point(-1,-1);
+        Point destination = new Point(1,2);
+        int timeUntilCold = 5;
+
+        toBeInserted.setPosition(start);
+        toBeInserted.setDestination(destination);
+        toBeInserted.setTimeUntilCold(timeUntilCold);
+
+        boolean wasInserted = deliverer.attemptInsertingPizza(toBeInserted);
+
+        assertFalse(wasInserted);
+    }
+
+    @Test
+    public void checkThatInsertionIsPossibleTest() {
+        //todo test for insertion
+        Pizza toBeInserted = new Pizza();
+        Point start = new Point(-1,-1);
+        Point destination = new Point(1,2);
+        int timeUntilCold = 6;
+
+        toBeInserted.setPosition(start);
+        toBeInserted.setDestination(destination);
+        toBeInserted.setTimeUntilCold(timeUntilCold);
+
+        boolean wasInserted = deliverer.attemptInsertingPizza(toBeInserted);
+
+        assertTrue(wasInserted);
     }
 
     @Test

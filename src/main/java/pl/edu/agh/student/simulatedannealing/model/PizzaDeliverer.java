@@ -148,28 +148,67 @@ public class PizzaDeliverer implements Cloneable {
 
         assert (route.containsAll(copyOfRoute) && copyOfRoute.containsAll(route));
 
-        //todo move rand to method parameter
+        //todo maybe move rand to method parameter
         Random rand = new Random();
         Collections.shuffle(validStartIndexes, rand);
         while (!validStartIndexes.isEmpty()) {
             int startIndex = validStartIndexes.remove(0);
+
+
+            List<Integer> validDestinationIndexes = new LinkedList<>();
             route.add(startIndex, start);
 
             int index = startIndex + 1;
             route.add(index, destination);
-            if (isAbleToCollectThePizzas())
-                return true;
+            if (isAbleToCollectThePizzas()) {
+                if (timeAtPoint(index) <= pizza.getTimeUntilCold())
+                    validDestinationIndexes.add(index);
+            }
             for (index++; index < route.size(); index++) {
                 Collections.swap(route, index, index - 1);
                 if (isAbleToCollectThePizzas())
-                    return true;
+                    if (timeAtPoint(index) <= pizza.getTimeUntilCold())
+                        validDestinationIndexes.add(index);
+                        //todo maybe continue/break on fail
+                        //and remove assertion
             }
             assert (index == route.size());
-            route.remove(index - 1);
+            route.remove(index - 1); //remove destination
+
+            if (validDestinationIndexes.isEmpty()) {
+                route.remove(startIndex);
+            } else {
+                Collections.shuffle(validDestinationIndexes);
+                route.add(validDestinationIndexes.get(0), destination);
+                pizzasWeCouldDeliver.add(pizza);
+                return true;
+            }
         }
 
         assert (route.containsAll(copyOfRoute) && copyOfRoute.containsAll(route));
         return false;
+    }
+
+    //helper method
+    // determines time when deliverer reaches the specified point on the route
+    private int timeAtPoint(int index) {
+        assert (index >= 0 && index < route.size());
+
+        Point currentPoint = currentPosition;
+        int currentIndex = 0;
+        int time = 0;
+        for (Point point : route) {
+            Point prev = currentPoint;
+            currentPoint = point;
+            time += currentPoint.distanceTo(prev);
+            if (index == currentIndex)
+                return time;
+
+            currentIndex++;
+        }
+
+        //should not be reached
+        return -1;
     }
 
     private List<Integer> resolveValidStartIndexes(Point start) {
