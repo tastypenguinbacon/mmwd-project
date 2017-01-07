@@ -1,0 +1,26 @@
+[
+  {
+    "pizzasWeAreObligatedToDeliver": [
+    ],
+    "currentPosition": {
+      "x": 10,
+      "y": 10
+    }
+  },
+  {
+    "pizzasWeAreObligatedToDeliver": [
+    ],
+    "currentPosition": {
+      "x": 30,
+      "y": 5
+    }
+  },
+  {
+    "pizzasWeAreObligatedToDeliver": [
+    ],
+    "currentPosition": {
+      "x": 10,
+      "y": 38
+    }
+  }
+]

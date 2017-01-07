@@ -5,9 +5,9 @@
     "deliverers": "test/deliverers.json"
   },
   {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas.json",
-    "deliverers": "test/deliverers.json"
+    "description": "random pizzas, three deliverers",
+    "pizzas": "pizza/randomly_distributed.json",
+    "deliverers": "deliverer/three_deliverers.json"
   },
   {
     "description": "Two directions, upper is better.",
