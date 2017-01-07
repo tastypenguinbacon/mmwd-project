@@ -12,7 +12,6 @@ import java.util.List;
  * This mutator attempts to insert pizzas with higher value of timeUntilCold first.
  */
 public class InsertHotPizzasFirstMutator extends ComputationStateMutatorBase{
-
     @Override
     public ComputationState getNext(ComputationState parent) {
         ComputationState child = new ComputationState(parent);
@@ -38,6 +37,4 @@ public class InsertHotPizzasFirstMutator extends ComputationStateMutatorBase{
 
                 return time2 - time1;
             };
-
-
 }

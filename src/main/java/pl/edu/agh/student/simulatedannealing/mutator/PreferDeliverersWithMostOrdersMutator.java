@@ -14,7 +14,6 @@ import java.util.List;
  * This mutator attempts to give pizzas to deliverers with high amount of orders first.
  */
 public class PreferDeliverersWithMostOrdersMutator extends ComputationStateMutatorBase{
-
     @Override
     public ComputationState getNext(ComputationState parent) {
         ComputationState child = new ComputationState(parent);
