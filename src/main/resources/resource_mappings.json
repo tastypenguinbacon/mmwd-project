@@ -10,13 +10,13 @@
     "deliverers": "test/deliverers.json"
   },
   {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas.json",
-    "deliverers": "test/deliverers.json"
+    "description": "Two directions, upper is better.",
+    "pizzas": "pizza/two_directions_upper_better.json",
+    "deliverers": "deliverer/two_directions_upper_better.json"
   },
   {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas.json",
-    "deliverers": "test/deliverers.json"
+    "description": "Pizzas in line to up/right corner",
+    "pizzas": "pizza/in_line_pizzas_to_upper_corner.json",
+    "deliverers": "deliverer/nodeliverers.json"
   }
 ]

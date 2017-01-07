@@ -1,0 +1,57 @@
+[
+  {
+    "timeUntilCold": 15,
+    "position": {
+      "x": 10,
+      "y": 10
+    },
+    "destination": {
+      "x": 15,
+      "y": 15
+    }
+  },
+  {
+    "timeUntilCold": 25,
+    "position": {
+      "x": 15,
+      "y": 15
+    },
+    "destination": {
+      "x": 20,
+      "y": 20
+    }
+  },
+  {
+    "timeUntilCold": 35,
+    "position": {
+      "x": 20,
+      "y": 20
+    },
+    "destination": {
+      "x": 25,
+      "y": 25
+    }
+  },
+  {
+    "timeUntilCold": 45,
+    "position": {
+      "x": 25,
+      "y": 25
+    },
+    "destination": {
+      "x": 30,
+      "y": 30
+    }
+  },
+  {
+    "timeUntilCold": 55,
+    "position": {
+      "x": 30,
+      "y": 30
+    },
+    "destination": {
+      "x": 35,
+      "y": 35
+    }
+  }
+]
