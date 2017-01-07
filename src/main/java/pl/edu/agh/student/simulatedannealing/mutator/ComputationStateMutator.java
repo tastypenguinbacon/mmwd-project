@@ -1,6 +1,7 @@
 package pl.edu.agh.student.simulatedannealing.mutator;
 
 import pl.edu.agh.student.simulatedannealing.model.Pizza;
+import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
 import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 
 import java.util.*;
@@ -10,10 +11,9 @@ import static java.lang.Math.min;
 /**
  * Created by Szymek on 2017-01-03.
  */
-public class ComputationStateMutator implements Mutator<ComputationState> {
-    private List<Pizza> pizzasToDeliver;
+public class ComputationStateMutator extends ComputationStateMutatorBase {
 
-    private Random generator = new Random();
+    //private Random generator = new Random();
 
     @Override
     public ComputationState getNext(ComputationState parent) {
@@ -57,15 +57,10 @@ public class ComputationStateMutator implements Mutator<ComputationState> {
         List<Pizza> pizzasThatMayBeRemoved = solution.getPotentialPizzas();
         if (pizzasThatMayBeRemoved.isEmpty())
             return false;
-        solution.removePizzaFromSolution(pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size())));
+        Pizza toBeRemoved = pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size()));
+        removePizzaFromSolution(toBeRemoved, solution);
         return true;
     }
 
-    private boolean addPizzaFromList(ComputationState solution, List<Pizza> candidatePizzas) {
-        for (Pizza toBeInserted : candidatePizzas) {
-            if (solution.addPizzaToSolution(toBeInserted))
-                return true;
-        }
-        return false;
-    }
+
 }
