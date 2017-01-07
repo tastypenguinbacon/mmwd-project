@@ -60,9 +60,25 @@ public abstract class ComputationStateMutatorBase implements Mutator<Computation
      */
     boolean addPizzaFromList(ComputationState solution, List<Pizza> candidatePizzas) {
         for (Pizza toBeInserted : candidatePizzas) {
-            if (addPizzaToSolution(toBeInserted, solution))
+            if (this.addPizzaToSolution(toBeInserted, solution))
                 return true;
         }
         return false;
+    }
+
+    /**
+     * This function attempts to remove a randomly chosen pizza from the solution.
+     * The pool of pizzas eligible for removal consists of all pizzas in the deliverer's pizzasWeCouldDeliver field.
+     * To be used as the default removal method by mutators that don't need specialized removal policy.
+     *
+     * @return true if a pizza was removed from the solution, false otherwise.
+     */
+    boolean removeRandomPizza(ComputationState solution) {
+        List<Pizza> pizzasThatMayBeRemoved = solution.getPotentialPizzas();
+        if (pizzasThatMayBeRemoved.isEmpty())
+            return false;
+        Pizza toBeRemoved = pizzasThatMayBeRemoved.get(generator.nextInt(pizzasThatMayBeRemoved.size()));
+        removePizzaFromSolution(toBeRemoved, solution);
+        return true;
     }
 }
