@@ -15,7 +15,7 @@ public class ObjectiveFunction implements Function<ComputationState, Double> {
         int summOfPizzasDelivered = 0;
         for (PizzaDeliverer deliverer : computationState.getPizzaDeliverers()) {
             if (!deliverer.isAbleToCollectThePizzas()) {
-                return 0.0;
+                return -1.0;
             }
             summOfPizzasDelivered += deliverer.getAssignedPizzas().size();
         }

@@ -29,14 +29,18 @@ public class SimulatedAnnealingSolver<CurrentState> {
         for (int step = 0; step < maxSteps; step++) {
             double currentTemperature = temperature.getNextTemperature();
             CurrentState child = mutator.getNext(current);
-            statistics.add(step + 1, getObjectiveFunctionValue(child));
-            double deltaE = getObjectiveFunctionValue(current) - getObjectiveFunctionValue(child);
+            double childObjectiveValue = getObjectiveFunctionValue(child);
+            if (childObjectiveValue > 0) {
+                statistics.add(step + 1, getObjectiveFunctionValue(child));
+                double deltaE = getObjectiveFunctionValue(current) - getObjectiveFunctionValue(child);
 
-            if (getObjectiveFunctionValue(child) > getObjectiveFunctionValue(best)) {
-                best = child;
-            }
-            if (shouldAccept(deltaE, currentTemperature)) {
-                current = child;
+                if (getObjectiveFunctionValue(child) > getObjectiveFunctionValue(best)) {
+                    best = child;
+                }
+
+                if (shouldAccept(deltaE, currentTemperature)) {
+                    current = child;
+                }
             }
         }
         return best;
