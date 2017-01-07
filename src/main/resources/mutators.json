@@ -1,6 +1,8 @@
 {
   "Don't do shit": "pl.edu.agh.student.simulatedannealing.mutator.DontDoShitMutator",
-  "Do shit": "pl.edu.agh.student.simulatedannealing.mutator.ComputationStateMutator",
-  "hot first": "pl.edu.agh.student.simulatedannealing.mutator.InsertColdPizzasFirstMutator",
-  "Do cold first": "pl.edu.agh.student.simulatedannealing.mutator.InsertHotPizzasFirstMutator"
+  "full random": "pl.edu.agh.student.simulatedannealing.mutator.ComputationStateMutator",
+  "cold pizzas first": "pl.edu.agh.student.simulatedannealing.mutator.InsertColdPizzasFirstMutator",
+  "hot pizzas first": "pl.edu.agh.student.simulatedannealing.mutator.InsertHotPizzasFirstMutator",
+  "give pizzas to deliverers with least orders": "pl.edu.agh.student.simulatedannealing.mutator.PreferDeliverersWithLeastOrdersMutator",
+  "give pizzas to deliverers with most orders": "pl.edu.agh.student.simulatedannealing.mutator.PreferDeliverersWithMostOrdersMutator"
 }
