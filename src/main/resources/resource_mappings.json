@@ -47,7 +47,7 @@
     "description": "Just for test purposes",
     "pizzas": "test/pizzas4.json",
     "deliverers": "test/deliverers4.json"
-  },
+  }
 
 
 ]
