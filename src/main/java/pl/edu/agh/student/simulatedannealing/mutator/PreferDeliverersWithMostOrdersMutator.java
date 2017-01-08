@@ -14,17 +14,22 @@ import java.util.List;
  * This mutator attempts to give pizzas to deliverers with high amount of orders first.
  */
 public class PreferDeliverersWithMostOrdersMutator extends ComputationStateMutatorBase{
+    private double chanceToAddInPercent;
+
     @Override
     public ComputationState getNext(ComputationState parent) {
         ComputationState child = new ComputationState(parent);
 
-        List<Pizza> notDeliveredYet = new LinkedList<>(pizzasToDeliver);
-        notDeliveredYet.removeAll(child.getPotentialPizzas());
-        Collections.shuffle(notDeliveredYet, generator);
-
-        boolean modified = addPizzaFromList(child, notDeliveredYet);
-        if (!modified)
+        int random = generator.nextInt(100);
+        boolean remove = random > chanceToAddInPercent;
+        if (remove) {
             removeRandomPizza(child);
+        } else {
+            List<Pizza> notDeliveredYet = new LinkedList<>(pizzasToDeliver);
+            notDeliveredYet.removeAll(child.getPotentialPizzas());
+            Collections.shuffle(notDeliveredYet, generator);
+            addPizzaFromList(child, notDeliveredYet);
+        }
 
         assert (child.isValid());
 
@@ -56,4 +61,8 @@ public class PreferDeliverersWithMostOrdersMutator extends ComputationStateMutat
 
         return count2 - count1;
     };
+
+    public void setChanceToAddInPercent(double chanceToAddInPercent) {
+        this.chanceToAddInPercent = chanceToAddInPercent;
+    }
 }

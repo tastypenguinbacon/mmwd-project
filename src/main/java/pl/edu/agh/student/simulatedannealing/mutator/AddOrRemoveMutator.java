@@ -37,5 +37,4 @@ public class AddOrRemoveMutator extends ComputationStateMutatorBase {
     public void setChanceToAddInPercent(double chanceToAddInPercent) {
         this.chanceToAddInPercent = chanceToAddInPercent;
     }
-
 }

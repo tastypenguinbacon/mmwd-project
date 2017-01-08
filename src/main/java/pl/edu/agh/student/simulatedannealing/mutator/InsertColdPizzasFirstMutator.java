@@ -12,17 +12,22 @@ import java.util.List;
  * This mutator attempts to insert pizzas with lower value of timeUntilCold first.
  */
 public class InsertColdPizzasFirstMutator extends ComputationStateMutatorBase{
+    private double chanceToAddInPercent;
+
     @Override
     public ComputationState getNext(ComputationState parent) {
         ComputationState child = new ComputationState(parent);
 
-        List<Pizza> notDeliveredYet = new LinkedList<>(pizzasToDeliver);
-        notDeliveredYet.removeAll(child.getPotentialPizzas());
-        notDeliveredYet.sort(pizzaTimeComparator);
-
-        boolean modified = addPizzaFromList(child, notDeliveredYet);
-        if (!modified)
+        int random = generator.nextInt(100);
+        boolean remove = random > chanceToAddInPercent;
+        if (remove) {
             removeRandomPizza(child);
+        } else {
+            List<Pizza> notDeliveredYet = new LinkedList<>(pizzasToDeliver);
+            notDeliveredYet.removeAll(child.getPotentialPizzas());
+            notDeliveredYet.sort(pizzaTimeComparator);
+            addPizzaFromList(child, notDeliveredYet);
+        }
 
         assert (child.isValid());
 
@@ -37,4 +42,8 @@ public class InsertColdPizzasFirstMutator extends ComputationStateMutatorBase{
 
                 return time1 - time2;
             };
+
+    public void setChanceToAddInPercent(double chanceToAddInPercent) {
+        this.chanceToAddInPercent = chanceToAddInPercent;
+    }
 }
