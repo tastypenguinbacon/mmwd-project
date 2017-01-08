@@ -18,5 +18,93 @@
     "description": "Pizzas in line to up/right corner",
     "pizzas": "pizza/in_line_pizzas_to_upper_corner.json",
     "deliverers": "deliverer/nodeliverers.json"
-  }
+  },
+   {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas.json",
+    "deliverers": "test/deliverers.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas1.json",
+    "deliverers": "test/deliverers1.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas2.json",
+    "deliverers": "test/deliverers2.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas3.json",
+    "deliverers": "test/deliverers3.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas4.json",
+    "deliverers": "test/deliverers4.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas5.json",
+    "deliverers": "test/deliverers5.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas6.json",
+    "deliverers": "test/deliverers6.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas7.json",
+    "deliverers": "test/deliverers7.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas8.json",
+    "deliverers": "test/deliverers8.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas9.json",
+    "deliverers": "test/deliverers9.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas10.json",
+    "deliverers": "test/deliverers10.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas11.json",
+    "deliverers": "test/deliverers11.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas12.json",
+    "deliverers": "test/deliverers12.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas13.json",
+    "deliverers": "test/deliverers13.json"
+  },
+
+  {
+    "description": "Just for test purposes",
+    "pizzas": "test/pizzas14.json",
+    "deliverers": "test/deliverers14.json"
 ]
