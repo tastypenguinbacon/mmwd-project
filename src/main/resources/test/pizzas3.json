@@ -1,23 +1,93 @@
 [
-  {
-    "pizzasWeAreObligatedToDeliver": [ ],
-    "currentPosition": {
-      "x": 3,
-      "y": 6
-    }
+ {
+  "timeUntilCold" : 10,
+  "position" : {
+    "x" : 10,
+    "y" : 15
   },
-  {
-    "pizzasWeAreObligatedToDeliver": [ ],
-    "currentPosition": {
-      "x": 3,
-      "y": 6
-    }
-  },
-  {
-    "pizzasWeAreObligatedToDeliver": [ ],
-    "currentPosition": {
-      "x": 3,
-      "y": 6
-    }
+  "destination" : {
+    "x" : 10,
+    "y" : 20
   }
+}, {
+  "timeUntilCold" : 15,
+  "position" : {
+    "x" : 10,
+    "y" : 20
+  },
+  "destination" : {
+    "x" : 10,
+    "y" : 25
+  }
+}, {
+  "timeUntilCold" : 25,
+  "position" : {
+    "x" : 10,
+    "y" : 25
+  },
+  "destination" : {
+    "x" : 10,
+    "y" : 30
+  }
+}, {
+  "timeUntilCold" : 30,
+  "position" : {
+    "x" : 10,
+    "y" : 30
+  },
+  "destination" : {
+    "x" : 10,
+    "y" : 35
+  }
+}, {
+  "timeUntilCold" : 35,
+  "position" : {
+    "x" : 10,
+    "y" : 35
+  },
+  "destination" : {
+    "x" : 10,
+    "y" : 40
+  }
+}, {
+  "timeUntilCold" : 40,
+  "position" : {
+    "x" : 10,
+    "y" : 40
+  },
+  "destination" : {
+    "x" : 10,
+    "y" : 45
+  }
+}, {
+  "timeUntilCold" : 45,
+  "position" : {
+    "x" : 10,
+    "y" : 45
+  },
+  "destination" : {
+    "x" : 10,
+    "y" : 50
+  }
+}, {
+  "timeUntilCold" : 10,
+  "position" : {
+    "x" : 15,
+    "y" : 10
+  },
+  "destination" : {
+    "x" : 20,
+    "y" : 10
+  }
+}, {
+  "timeUntilCold" : 15,
+  "position" : {
+    "x" : 20,
+    "y" : 10
+  },
+  "destination" : {
+    "x" : 25,
+    "y" : 10
+  }
+}
 ]
