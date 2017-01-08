@@ -131,6 +131,12 @@ public class PizzaDeliverer implements Cloneable {
      */
 
     public boolean attemptInsertingPizza(Pizza pizza) {
+        //check if this deliverer is able to deliver the pizza on time
+        int minimalTime = currentPosition.distanceTo(pizza.getPosition());
+        minimalTime += pizza.getPosition().distanceTo(pizza.getDestination());
+        if (minimalTime > pizza.getTimeUntilCold())
+            return false;
+
         pizzasWeCouldDeliver.add(pizza);
         if (isAbleToCollectThePizzas())
             return true;
