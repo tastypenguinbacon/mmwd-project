@@ -4,10 +4,7 @@ import pl.edu.agh.student.simulatedannealing.model.Pizza;
 import pl.edu.agh.student.simulatedannealing.model.PizzaDeliverer;
 import pl.edu.agh.student.simulatedannealing.solver.ComputationState;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Szymek on 2017-01-07.
@@ -39,14 +36,16 @@ public abstract class ComputationStateMutatorBase implements Mutator<Computation
     }
 
     /**
-     * //todo currently always tries insertion starting from first deliverer to last
      * Attempts to add the specified pizza to random valid deliverer in the specified solution.
      * Tries inserting into consecutive deliverers until success or deliverer route exhaustion.
      *
      * @return true upon successful addition of the pizza. False otherwise.
      */
     boolean addPizzaToSolution(Pizza toBeAdded, ComputationState solution) {
-        for (PizzaDeliverer candidate : solution.getPizzaDeliverers())
+        //shallow copy
+        List<PizzaDeliverer> deliverers = new LinkedList<>(solution.getPizzaDeliverers());
+        Collections.shuffle(deliverers, generator);
+        for (PizzaDeliverer candidate : deliverers)
             if (candidate.attemptInsertingPizza(toBeAdded))
                 return true;
         return false;
