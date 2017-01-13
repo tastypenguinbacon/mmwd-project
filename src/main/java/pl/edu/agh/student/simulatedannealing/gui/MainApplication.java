@@ -25,7 +25,17 @@ import pl.edu.agh.student.simulatedannealing.temperature.Temperature;
 import pl.edu.agh.student.simulatedannealing.util.ClassInstantiator;
 import pl.edu.agh.student.simulatedannealing.util.JsonLoader;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.UncheckedIOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Function;
 
@@ -171,11 +181,57 @@ public class MainApplication extends Application {
                 finalState = solver.solve(startingPoint, iterationCount);
                 computationStatistics = solver.getStatistics();
                 updateCharts();
+                printStatisticsToFile();
             } else {
                 new ErrorDialog().show();
             }
         });
         return compute;
+    }
+
+    private void printStatisticsToFile(){
+        //path
+        String outDir = "./output/test/";
+        String timestamp = new SimpleDateFormat("YYYY-MM-dd'T'HHmmss").format(new Date());
+        String baseName = "statistics";
+        String extension = ".csv";
+        String fileName = baseName + "_" + timestamp + extension;
+
+        Path path = Paths.get(outDir + fileName);
+        Path parentDir = path.getParent();
+        if (!Files.exists(parentDir)) {
+            try {
+                Files.createDirectories(parentDir);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
+
+        Charset encoding = StandardCharsets.UTF_8;
+        PrintWriter printWriter;
+        try {
+            printWriter = new PrintWriter(
+                    Files.newBufferedWriter(
+                            path,
+                            encoding,
+                            StandardOpenOption.CREATE_NEW
+                    )
+            );
+
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+
+
+        //header
+        printWriter.println("iteration,value");
+        //statistics
+        List<StatisticPoint> statistics = computationStatistics.getStatistics();
+        for ( StatisticPoint dataPoint : statistics) {
+            printWriter.println(dataPoint.getIteration() + "," + dataPoint.getValue());
+        }
+        printWriter.flush();
+        printWriter.close();
     }
 
     private void updateCharts() {

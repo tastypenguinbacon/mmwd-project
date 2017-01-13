@@ -1,5 +1,6 @@
 build/
 out/
+output/
 gradle/
 .gradle/
 .idea/
