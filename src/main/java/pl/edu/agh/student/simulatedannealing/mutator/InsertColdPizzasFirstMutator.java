@@ -46,4 +46,9 @@ public class InsertColdPizzasFirstMutator extends ComputationStateMutatorBase{
     public void setChanceToAddInPercent(double chanceToAddInPercent) {
         this.chanceToAddInPercent = chanceToAddInPercent;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "; " + "chanceToAddInPercent: " + chanceToAddInPercent;
+    }
 }

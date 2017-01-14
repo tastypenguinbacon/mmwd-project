@@ -19,18 +19,26 @@
     "pizzas": "pizza/in_line_pizzas_to_upper_corner.json",
     "deliverers": "deliverer/nodeliverers.json"
   },
-   {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas.json",
-    "deliverers": "test/deliverers.json"
-  },
-
   {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas1.json",
-    "deliverers": "test/deliverers1.json"
+    "description": "1 deliverer optimal value is 20",
+    "pizzas": "pizza/optimal_value_is_20.json",
+    "deliverers": "deliverer/optimal_value_is_20.json"
   },
-
+  {
+    "description": "3 deliverers optimal value is 60",
+    "pizzas": "pizza/optimal_value_is_60.json",
+    "deliverers": "deliverer/optimal_value_is_60.json"
+  },
+  {
+    "description": "(click for optimal solution)\n3 deliverers optimal value is 60",
+    "pizzas": "pizza/optimal_value_is_60.json",
+    "deliverers": "deliverer/optimal_solution_for_60.json"
+  },
+  {
+    "description": "4 deliverers optimal value is 100",
+    "pizzas": "pizza/optimal_value_is_100.json",
+    "deliverers": "deliverer/optimal_value_is_100.json"
+  },
   {
     "description": "Just for test purposes",
     "pizzas": "test/pizzas2.json",

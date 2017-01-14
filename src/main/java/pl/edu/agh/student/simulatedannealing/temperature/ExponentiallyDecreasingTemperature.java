@@ -37,4 +37,11 @@ public class ExponentiallyDecreasingTemperature implements Temperature {
         currentTemperature *= alpha;
         return temperatureToReturn;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "; " +
+                "startingTemperature: " + startingTemperature + "; " +
+                "alpha: " + alpha;
+    }
 }

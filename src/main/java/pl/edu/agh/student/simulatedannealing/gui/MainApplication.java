@@ -224,6 +224,8 @@ public class MainApplication extends Application {
 
 
         //header
+        printWriter.println("mutator: " + mutator);
+        printWriter.println("temperature: " + temperature);
         printWriter.println("iteration,value");
         //statistics
         List<StatisticPoint> statistics = computationStatistics.getStatistics();

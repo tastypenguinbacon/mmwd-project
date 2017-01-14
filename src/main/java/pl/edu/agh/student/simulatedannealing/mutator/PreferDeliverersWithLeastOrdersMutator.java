@@ -65,4 +65,9 @@ public class PreferDeliverersWithLeastOrdersMutator extends ComputationStateMuta
     public void setChanceToAddInPercent(double chanceToAddInPercent) {
         this.chanceToAddInPercent = chanceToAddInPercent;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "; " + "chanceToAddInPercent: " + chanceToAddInPercent;
+    }
 }

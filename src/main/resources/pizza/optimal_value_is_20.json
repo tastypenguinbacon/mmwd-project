@@ -1,0 +1,201 @@
+[ {
+  "timeUntilCold" : 108,
+  "position" : {
+    "x" : 35,
+    "y" : 19
+  },
+  "destination" : {
+    "x" : 9,
+    "y" : 27
+  }
+}, {
+  "timeUntilCold" : 88,
+  "position" : {
+    "x" : 5,
+    "y" : 6
+  },
+  "destination" : {
+    "x" : 11,
+    "y" : 18
+  }
+}, {
+  "timeUntilCold" : 109,
+  "position" : {
+    "x" : 16,
+    "y" : 4
+  },
+  "destination" : {
+    "x" : 19,
+    "y" : 33
+  }
+}, {
+  "timeUntilCold" : 208,
+  "position" : {
+    "x" : 18,
+    "y" : 1
+  },
+  "destination" : {
+    "x" : 48,
+    "y" : 39
+  }
+}, {
+  "timeUntilCold" : 235,
+  "position" : {
+    "x" : 13,
+    "y" : 32
+  },
+  "destination" : {
+    "x" : 43,
+    "y" : 9
+  }
+}, {
+  "timeUntilCold" : 62,
+  "position" : {
+    "x" : 11,
+    "y" : 5
+  },
+  "destination" : {
+    "x" : 11,
+    "y" : 19
+  }
+}, {
+  "timeUntilCold" : 205,
+  "position" : {
+    "x" : 9,
+    "y" : 25
+  },
+  "destination" : {
+    "x" : 31,
+    "y" : 4
+  }
+}, {
+  "timeUntilCold" : 295,
+  "position" : {
+    "x" : 50,
+    "y" : 40
+  },
+  "destination" : {
+    "x" : 5,
+    "y" : 16
+  }
+}, {
+  "timeUntilCold" : 319,
+  "position" : {
+    "x" : 36,
+    "y" : 39
+  },
+  "destination" : {
+    "x" : 0,
+    "y" : 9
+  }
+}, {
+  "timeUntilCold" : 302,
+  "position" : {
+    "x" : 32,
+    "y" : 36
+  },
+  "destination" : {
+    "x" : 4,
+    "y" : 2
+  }
+}, {
+  "timeUntilCold" : 166,
+  "position" : {
+    "x" : 4,
+    "y" : 5
+  },
+  "destination" : {
+    "x" : 36,
+    "y" : 7
+  }
+}, {
+  "timeUntilCold" : 280,
+  "position" : {
+    "x" : 46,
+    "y" : 10
+  },
+  "destination" : {
+    "x" : 3,
+    "y" : 33
+  }
+}, {
+  "timeUntilCold" : 244,
+  "position" : {
+    "x" : 25,
+    "y" : 1
+  },
+  "destination" : {
+    "x" : 48,
+    "y" : 28
+  }
+}, {
+  "timeUntilCold" : 92,
+  "position" : {
+    "x" : 35,
+    "y" : 20
+  },
+  "destination" : {
+    "x" : 19,
+    "y" : 31
+  }
+}, {
+  "timeUntilCold" : 254,
+  "position" : {
+    "x" : 47,
+    "y" : 11
+  },
+  "destination" : {
+    "x" : 16,
+    "y" : 33
+  }
+}, {
+  "timeUntilCold" : 175,
+  "position" : {
+    "x" : 17,
+    "y" : 32
+  },
+  "destination" : {
+    "x" : 28,
+    "y" : 1
+  }
+}, {
+  "timeUntilCold" : 129,
+  "position" : {
+    "x" : 12,
+    "y" : 4
+  },
+  "destination" : {
+    "x" : 20,
+    "y" : 24
+  }
+}, {
+  "timeUntilCold" : 375,
+  "position" : {
+    "x" : 39,
+    "y" : 9
+  },
+  "destination" : {
+    "x" : 2,
+    "y" : 50
+  }
+}, {
+  "timeUntilCold" : 135,
+  "position" : {
+    "x" : 26,
+    "y" : 23
+  },
+  "destination" : {
+    "x" : 10,
+    "y" : 1
+  }
+}, {
+  "timeUntilCold" : 308,
+  "position" : {
+    "x" : 11,
+    "y" : 9
+  },
+  "destination" : {
+    "x" : 45,
+    "y" : 41
+  }
+} ]

@@ -39,4 +39,11 @@ public class LinearlyDecreasingTemperature implements Temperature{
             currentTemperature -= decrement;
         return temperatureToReturn;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "; " +
+                "startingTemperature: " + startingTemperature + "; " +
+                "decrement: " + decrement;
+    }
 }

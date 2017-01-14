@@ -80,4 +80,9 @@ public abstract class ComputationStateMutatorBase implements Mutator<Computation
         removePizzaFromSolution(toBeRemoved, solution);
         return true;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }
