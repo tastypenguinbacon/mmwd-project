@@ -1,6 +1,9 @@
 package pl.edu.agh.student.simulatedannealing.gui;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -181,7 +184,7 @@ public class MainApplication extends Application {
                 finalState = solver.solve(startingPoint, iterationCount);
                 computationStatistics = solver.getStatistics();
                 updateCharts();
-                printStatisticsToFile();
+                printOutputToFiles();
             } else {
                 new ErrorDialog().show();
             }
@@ -189,15 +192,22 @@ public class MainApplication extends Application {
         return compute;
     }
 
-    private void printStatisticsToFile(){
+    private void printOutputToFiles(){
         //path
-        String outDir = "./output/test/";
+        String outDir = "./output/";
         String timestamp = new SimpleDateFormat("YYYY-MM-dd'T'HHmmss").format(new Date());
+        printStatisticsToFile(outDir, timestamp);
+        printSolutionToFile(outDir, timestamp);
+    }
+
+    private void printStatisticsToFile(String outDir, String timestamp) {
+        //path
+        String statisticsDir = outDir + "test/";
         String baseName = "statistics";
         String extension = ".csv";
         String fileName = baseName + "_" + timestamp + extension;
 
-        Path path = Paths.get(outDir + fileName);
+        Path path = Paths.get(statisticsDir + fileName);
         Path parentDir = path.getParent();
         if (!Files.exists(parentDir)) {
             try {
@@ -231,6 +241,53 @@ public class MainApplication extends Application {
         List<StatisticPoint> statistics = computationStatistics.getStatistics();
         for ( StatisticPoint dataPoint : statistics) {
             printWriter.println(dataPoint.getIteration() + "," + dataPoint.getValue());
+        }
+        printWriter.flush();
+        printWriter.close();
+    }
+
+    private void printSolutionToFile(String outDir, String timestamp) {
+        //path
+        String solutionsDir = outDir + "solutions/";
+        String baseName = "solution";
+        String extension = ".json";
+        String fileName = baseName + "_" + timestamp + extension;
+
+        Path path = Paths.get(solutionsDir + fileName);
+        Path parentDir = path.getParent();
+        if (!Files.exists(parentDir)) {
+            try {
+                Files.createDirectories(parentDir);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
+
+        Charset encoding = StandardCharsets.UTF_8;
+        PrintWriter printWriter;
+        try {
+            printWriter = new PrintWriter(
+                    Files.newBufferedWriter(
+                            path,
+                            encoding,
+                            StandardOpenOption.CREATE_NEW
+                    )
+            );
+
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+
+        //solution
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        for (PizzaDeliverer deliverer : finalState.getPizzaDeliverers()) {
+            try {
+                String serializedDeliverer = objectMapper.writeValueAsString(deliverer);
+                printWriter.println(serializedDeliverer);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }
         printWriter.flush();
         printWriter.close();
