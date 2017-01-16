@@ -145,7 +145,7 @@ public class MainApplication extends Application {
 
     private Node getMutators() {
         VBox mutatorPanel = new VBox(10);
-        mutatorPanel.getChildren().add(new Label("Mutator:"));
+        mutatorPanel.getChildren().add(new Label("Change of neighbourhood:"));
         ObservableList<String> temperatures = FXCollections.observableArrayList(mutatorClassMappings.keySet());
         ComboBox<String> comboBox = new ComboBox<>(temperatures);
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
