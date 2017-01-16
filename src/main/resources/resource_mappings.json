@@ -1,10 +1,5 @@
 [
   {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas.json",
-    "deliverers": "test/deliverers.json"
-  },
-  {
     "description": "random pizzas, three deliverers",
     "pizzas": "pizza/randomly_distributed.json",
     "deliverers": "deliverer/three_deliverers.json"
@@ -38,24 +33,5 @@
     "description": "4 deliverers optimal value is 100",
     "pizzas": "pizza/optimal_value_is_100.json",
     "deliverers": "deliverer/optimal_value_is_100.json"
-  },
-  {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas2.json",
-    "deliverers": "test/deliverers2.json"
-  },
-
-  {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas3.json",
-    "deliverers": "test/deliverers3.json"
-  },
-
-  {
-    "description": "Just for test purposes",
-    "pizzas": "test/pizzas4.json",
-    "deliverers": "test/deliverers4.json"
   }
-
-
 ]

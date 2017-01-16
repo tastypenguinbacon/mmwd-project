@@ -1,5 +1,4 @@
 {
-  "Don't do shit": "pl.edu.agh.student.simulatedannealing.mutator.DontDoShitMutator",
   "greedy": "pl.edu.agh.student.simulatedannealing.mutator.ComputationStateMutator",
   "add with specified probability": "pl.edu.agh.student.simulatedannealing.mutator.AddOrRemoveMutator",
   "cold pizzas first": "pl.edu.agh.student.simulatedannealing.mutator.InsertColdPizzasFirstMutator",
